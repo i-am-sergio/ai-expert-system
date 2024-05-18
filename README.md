@@ -123,7 +123,7 @@ This project is an Expert System for Vocational Guidance designed to help users 
 
     - Run the backend application:
     ```bash
-    python app.py
+    flask --app app run
     ```
 
 3. **Frontend:**
