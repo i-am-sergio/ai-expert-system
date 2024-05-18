@@ -99,6 +99,51 @@ This project is an Expert System for Vocational Guidance designed to help users 
     - `SQLite` Lightweight database for storing user information and results.
 
 
+## Installation and Configuration
+
+1. **Clone the repository**
+
+2. **Backend:**
+
+    - From the root of the project:
+    ```bash
+    cd expert-system-vocational-guidance/backend
+    ```
+    
+    - Create a virtual environment:
+    ```bash
+    python -m venv venv
+    source venv/bin/activate
+    ```
+
+    - Install the dependencies:
+    ```bash
+    pip install -r requirements.txt
+    ```
+
+    - Run the backend application:
+    ```bash
+    python app.py
+    ```
+
+3. **Frontend:**
+
+    - From the root of the project:
+    ```bash
+    cd expert-system-vocational-guidance/frontend
+    ```
+
+    - Install the dependencies:
+    ```bash
+    npm install
+    ```
+    
+    - Run the frontend application:
+    ```bash
+    npm run dev
+    ```
+    
+
 
 <!-- TRADUCTION IN SPANISH -->
 
