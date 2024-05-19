@@ -22,7 +22,10 @@
   - Example: `refactor: Quit user-microservice folder of my branch`
 
 - **config**: For maintenance tasks, such as dependency updates, configurations, etc.
-  - Example: `chore: Update Maven dependencies`
+  - Example: `config: Update Maven dependencies`
+
+- **deploy**: For configurations to deploy application
+  - Example: `deploy: Add script for building in package.json`
 
 - **format**: For changes that do not affect the code behavior (e.g., formatting, whitespace, etc.).
   - Example: `format: Format code according to style conventions`
