@@ -31,7 +31,7 @@ function ChatBoxArea() {
     // Obtener la pregunta inicial
     //http://127.0.0.1:5000/pregunta
     axios
-      .get("https://hq3n9719-5000.brs.devtunnels.ms/pregunta")
+      .get("http://127.0.0.1:5000/pregunta")
       .then((res) => {
         if (res.data.pregunta) {
           setMessages([{ type: "question", text: res.data.pregunta }]);
@@ -45,7 +45,7 @@ function ChatBoxArea() {
     setMessages((prevMessages) => [...prevMessages, { type: "answer", text }]);
     //http://127.0.0.1:5000/respuesta
     axios
-      .post("https://hq3n9719-5000.brs.devtunnels.ms/respuesta", {
+      .post("http://127.0.0.1:5000/respuesta", {
         respuesta: text,
       })
       .then((res) => {

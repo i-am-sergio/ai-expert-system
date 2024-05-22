@@ -36,21 +36,21 @@ for carrera, registros in datos.items():
 
     
 
-def sistema_experto(carreras_datos):
-    respuestas = {}
+# def sistema_experto(carreras_datos):
+#     respuestas = {}
 
-    for carrera, registros in carreras_datos.items():
-        print(f"Evaluando la carrera: {carrera}")
-        respuestas[carrera] = 0
-        for categoria, pregunta in registros:
-            respuesta = input(f"{pregunta} (sí/no): ").strip().lower()
-            if respuesta == "sí":
-                respuestas[carrera] += 1
+#     for carrera, registros in carreras_datos.items():
+#         print(f"Evaluando la carrera: {carrera}")
+#         respuestas[carrera] = 0
+#         for categoria, pregunta in registros:
+#             respuesta = input(f"{pregunta} (sí/no): ").strip().lower()
+#             if respuesta == "sí":
+#                 respuestas[carrera] += 1
     
-    # Determinar la carrera más adecuada
-    carrera_ideal = max(respuestas, key=respuestas.get)
-    print(f"¡La carrera más adecuada para ti es: {carrera_ideal}!")
+#     # Determinar la carrera más adecuada
+#     carrera_ideal = max(respuestas, key=respuestas.get)
+#     print(f"¡La carrera más adecuada para ti es: {carrera_ideal}!")
 
-# Llamada al sistema experto con los datos leídos
-sistema_experto(datos)
+# # Llamada al sistema experto con los datos leídos
+# sistema_experto(datos)
 
