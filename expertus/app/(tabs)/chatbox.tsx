@@ -98,7 +98,7 @@ function ChatBoxArea() {
           ref={flatListRef}
           data={messages}
           renderItem={renderItem}
-          keyExtractor={(item, index) => index.toString()}
+          keyExtractor={(_, index) => index.toString()}
           contentContainerStyle={{ paddingBottom: insets.bottom + 20 }}
           onContentSizeChange={() =>
             flatListRef.current?.scrollToEnd({ animated: true })
@@ -139,13 +139,6 @@ export default function Chatbox() {
 }
 
 const styles = StyleSheet.create({
-  headerImage: {
-    color: "#212426",
-    backgroundColor: "#212426",
-    bottom: -90,
-    left: -35,
-    position: "absolute",
-  },
   div1: {
     padding: 20,
     backgroundColor: "#d0d0d0",
@@ -161,29 +154,49 @@ const styles = StyleSheet.create({
     backgroundColor: "#BBB",
   },
   buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    marginBottom: 8,
-    marginLeft: 10,
-    marginRight: 10,
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    marginLeft: '8%'
   },
   button: {
     flex: 1,
-    padding: 20,
-    borderRadius: 4,
-    alignItems: "center",
-    marginHorizontal: 5,
-    width: Dimensions.get("window").width - 400,
+    marginHorizontal: 2.5, // Half of the separation (5px / 2)
+    paddingVertical: 12,
+    paddingHorizontal: 80,
+    borderRadius: 8,
+    alignItems: 'center',
   },
+  // buttonContainer: {
+  //   flexDirection: "row",
+  //   justifyContent: "space-between",
+  //   marginBottom: 8,
+  //   marginLeft: 10,
+  //   marginRight: 10,
+  // },
+  // button: {
+  //   fontWeight: 'bold',
+  //   flex: 1,
+  //   padding: 20,
+  //   borderRadius: 4,
+  //   alignItems: "center",
+  //   marginHorizontal: 5,
+  //   minWidth: "80%", // Cada botón ocupará el 40% del ancho disponible
+  // },
   buttonNo: {
-    backgroundColor: "red",
+    backgroundColor: "#f05330",
+    fontWeight: "bold",
+    width: '50%',
   },
   buttonSi: {
-    backgroundColor: "green",
+    backgroundColor: "#67b2f0",
+    fontWeight: "bold",
+    width: '50%',
   },
   buttonText: {
     color: "#fff",
     fontSize: 16,
+    fontWeight: 'bold',
   },
   textInput: {
     borderColor: "#ccc",
