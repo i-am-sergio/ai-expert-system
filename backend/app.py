@@ -20,25 +20,6 @@ current_symptom = None
 diagnostico_actual = None
 explicacion_diagnostico = []
 
-# def extraer_datos_carreras():
-#     conn = sqlite3.connect('carreras.db')
-#     cursor = conn.cursor()
-
-#     # Obtener la lista de tablas
-#     cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
-#     tablas = cursor.fetchall()
-
-#     carreras_preguntas = {}
-
-#     for tabla in tablas:
-#         nombre_tabla = tabla[0].replace("_", " ")
-#         cursor.execute(f"SELECT categoria, pregunta FROM {tabla[0]}")
-#         filas = cursor.fetchall()
-#         carreras_preguntas[nombre_tabla] = [(fila[0], fila[1]) for fila in filas]
-
-#     conn.close()
-#     return carreras_preguntas
-
 def haz_diagnostico():
     global explicacion_diagnostico
     explicacion_diagnostico = []
@@ -67,6 +48,8 @@ def siguiente_sintoma():
 
 def create_app():
     app = Flask(__name__)
+
+    CORS(app)
 
     with app.app_context():
         global conocimiento
