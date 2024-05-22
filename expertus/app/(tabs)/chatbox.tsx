@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
@@ -9,6 +9,7 @@ import {
   Platform,
   FlatList,
   ListRenderItem,
+  Keyboard,
 } from "react-native";
 import {
   SafeAreaProvider,
@@ -16,7 +17,6 @@ import {
 } from "react-native-safe-area-context";
 import axios from "axios";
 
-// Definimos los tipos para los mensajes
 type Message = {
   type: "question" | "answer" | "diagnostico";
   text: string;
@@ -26,22 +26,20 @@ function ChatBoxArea() {
   const insets = useSafeAreaInsets();
   const [text, setText] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
+  const flatListRef = useRef<FlatList>(null);
 
   useEffect(() => {
     // Obtener la pregunta inicial
-    //http://127.0.0.1:5000/pregunta
-    axios
-      .get("http://127.0.0.1:5000/pregunta")
-      .then((res) => {
-        if (res.data.pregunta) {
-          setMessages([{ type: "question", text: res.data.pregunta }]);
-        }
-      });
+    axios.get("http://127.0.0.1:5000/pregunta").then((res) => {
+      if (res.data.pregunta) {
+        setMessages([{ type: "question", text: res.data.pregunta }]);
+      }
+    });
   }, []);
 
   const handleSend = () => {
+    if (text.trim() === "") return;
     console.log("Mensaje enviado:", text);
-    // Añadir la respuesta del usuario a los mensajes
     setMessages((prevMessages) => [...prevMessages, { type: "answer", text }]);
     //http://127.0.0.1:5000/respuesta
     axios
@@ -60,8 +58,9 @@ function ChatBoxArea() {
             { type: "diagnostico", text: res.data.diagnostico },
           ]);
         }
+        flatListRef.current?.scrollToEnd({ animated: true });
       });
-    setText(""); // Limpiar el campo de texto después de enviar
+    setText("");
   };
 
   const renderItem: ListRenderItem<Message> = ({ item }) => (
@@ -92,22 +91,23 @@ function ChatBoxArea() {
         <Text style={{ fontSize: 28, marginBottom: 20 }}>Chatbox Area</Text>
 
         <Text style={{ fontSize: 16 }}>Chatbox Area is in safe area.</Text>
-        <Text style={{ fontSize: 16, marginBottom: 20 }}>
-          Aquí estaria el contenido de mensajes del chat
-        </Text>
+        <FlatList
+          ref={flatListRef}
+          data={messages}
+          renderItem={renderItem}
+          keyExtractor={(item, index) => index.toString()}
+          contentContainerStyle={{ paddingBottom: insets.bottom + 20 }}
+          onContentSizeChange={() =>
+            flatListRef.current?.scrollToEnd({ animated: true })
+          }
+          onLayout={() => flatListRef.current?.scrollToEnd({ animated: true })}
+        />
       </View>
-
-      <FlatList
-        data={messages}
-        renderItem={renderItem}
-        keyExtractor={(item, index) => index.toString()}
-        contentContainerStyle={{ paddingBottom: insets.bottom + 20 }}
-      />
 
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.inputContainer}
-        keyboardVerticalOffset={insets.bottom + 20} // Ajusta el offset según sea necesario
+        keyboardVerticalOffset={insets.bottom + 20}
       >
         <TextInput
           style={styles.textInput}
@@ -147,14 +147,10 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   inputContainer: {
-    position: "absolute",
-    bottom: 0,
-    left: 0,
-    right: 0,
     flexDirection: "row",
     alignItems: "center",
     padding: 8,
-    backgroundColor: "#BBB", // Fondo blanco para diferenciar la zona de entrada
+    backgroundColor: "#BBB",
   },
   textInput: {
     flex: 1,
