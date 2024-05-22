@@ -2,20 +2,19 @@ import React, { useState, useEffect, useRef } from "react";
 import {
   View,
   Text,
-  TextInput,
-  Button,
   StyleSheet,
   KeyboardAvoidingView,
   Platform,
   FlatList,
   ListRenderItem,
-  Keyboard,
+  Dimensions,
 } from "react-native";
 import {
   SafeAreaProvider,
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import axios from "axios";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 type Message = {
   type: "question" | "answer" | "diagnostico";
@@ -24,7 +23,6 @@ type Message = {
 
 function ChatBoxArea() {
   const insets = useSafeAreaInsets();
-  const [text, setText] = useState<string>("");
   const [messages, setMessages] = useState<Message[]>([]);
   const flatListRef = useRef<FlatList>(null);
 
@@ -37,14 +35,16 @@ function ChatBoxArea() {
     });
   }, []);
 
-  const handleSend = () => {
-    if (text.trim() === "") return;
-    console.log("Mensaje enviado:", text);
-    setMessages((prevMessages) => [...prevMessages, { type: "answer", text }]);
+  const handleSend = (message: string) => {
+    if (message.trim() === "") return;
+    setMessages((prevMessages) => [
+      ...prevMessages,
+      { type: "answer", text: message },
+    ]);
     //http://127.0.0.1:5000/respuesta
     axios
       .post("http://127.0.0.1:5000/respuesta", {
-        respuesta: text,
+        respuesta: message,
       })
       .then((res) => {
         if (res.data.pregunta) {
@@ -60,30 +60,33 @@ function ChatBoxArea() {
         }
         flatListRef.current?.scrollToEnd({ animated: true });
       });
-    setText("");
   };
 
-  const renderItem: ListRenderItem<Message> = ({ item }) => (
-    <View style={styles.message}>
-      <Text
-        style={{
-          fontSize: 16,
-          color:
-            item.type === "question"
-              ? "blue"
-              : item.type === "answer"
-              ? "green"
-              : "red",
-        }}
-      >
-        {item.type === "question"
-          ? `Pregunta: ${item.text}`
-          : item.type === "answer"
-          ? `Respuesta: ${item.text}`
-          : `Diagnóstico: ${item.text}`}
-      </Text>
-    </View>
-  );
+  const renderItem: ListRenderItem<Message> = ({ item }) => {
+    let textColor;
+    if (item.type === "question") {
+      textColor = "blue";
+    } else if (item.type === "answer") {
+      textColor = "green";
+    } else {
+      textColor = "red";
+    }
+
+    let displayText;
+    if (item.type === "question") {
+      displayText = `Pregunta: ${item.text}`;
+    } else if (item.type === "answer") {
+      displayText = `Respuesta: ${item.text}`;
+    } else {
+      displayText = `Diagnóstico: ${item.text}`;
+    }
+
+    return (
+      <View style={styles.message}>
+        <Text style={{ fontSize: 16, color: textColor }}>{displayText}</Text>
+      </View>
+    );
+  };
 
   return (
     <View style={{ flex: 1, paddingTop: insets.top }}>
@@ -103,19 +106,25 @@ function ChatBoxArea() {
           onLayout={() => flatListRef.current?.scrollToEnd({ animated: true })}
         />
       </View>
-
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
         style={styles.inputContainer}
         keyboardVerticalOffset={insets.bottom + 20}
       >
-        <TextInput
-          style={styles.textInput}
-          placeholder="Escribe tu mensaje..."
-          value={text}
-          onChangeText={setText}
-        />
-        <Button title="Send" onPress={handleSend} />
+        <View style={styles.buttonContainer}>
+          <TouchableOpacity
+            style={[styles.button, styles.buttonSi]}
+            onPress={() => handleSend("si")}
+          >
+            <Text style={styles.buttonText}>SI</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, styles.buttonNo]}
+            onPress={() => handleSend("no")}
+          >
+            <Text style={styles.buttonText}>NO</Text>
+          </TouchableOpacity>
+        </View>
       </KeyboardAvoidingView>
     </View>
   );
@@ -131,7 +140,7 @@ export default function Chatbox() {
 
 const styles = StyleSheet.create({
   headerImage: {
-    color: "#212426", //'#808080',
+    color: "#212426",
     backgroundColor: "#212426",
     bottom: -90,
     left: -35,
@@ -147,18 +156,41 @@ const styles = StyleSheet.create({
     gap: 8,
   },
   inputContainer: {
-    flexDirection: "row",
-    alignItems: "center",
+    flexDirection: "column",
     padding: 8,
     backgroundColor: "#BBB",
   },
-  textInput: {
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginBottom: 8,
+    marginLeft: 10,
+    marginRight: 10,
+  },
+  button: {
     flex: 1,
+    padding: 20,
+    borderRadius: 4,
+    alignItems: "center",
+    marginHorizontal: 5,
+    width: Dimensions.get("window").width - 400,
+  },
+  buttonNo: {
+    backgroundColor: "red",
+  },
+  buttonSi: {
+    backgroundColor: "green",
+  },
+  buttonText: {
+    color: "#fff",
+    fontSize: 16,
+  },
+  textInput: {
     borderColor: "#ccc",
     borderWidth: 1,
     borderRadius: 4,
     padding: 8,
-    marginRight: 8,
+    marginTop: 8,
   },
   message: {
     padding: 10,
