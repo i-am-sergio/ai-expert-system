@@ -7,7 +7,8 @@ import {
   Platform,
   FlatList,
   ListRenderItem,
-  Dimensions,
+  Button,
+  Animated,
 } from "react-native";
 import {
   SafeAreaProvider,
@@ -25,6 +26,11 @@ function ChatBoxArea() {
   const insets = useSafeAreaInsets();
   const [messages, setMessages] = useState<Message[]>([]);
   const flatListRef = useRef<FlatList>(null);
+  const [reset, setReset] = useState(false);
+  const [block, setBlock] = useState(false);
+
+  const slideAnim = useRef(new Animated.Value(-100)).current;
+  const fadeAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
     // Obtener la pregunta inicial
@@ -35,13 +41,45 @@ function ChatBoxArea() {
     });
   }, []);
 
+  const handleReset = () => {
+    setMessages([]);
+    axios.post("http://127.0.0.1:5000/nuevo_diagnostico").then((res) => {
+      if (res.data.mensaje) {
+        axios.get("http://127.0.0.1:5000/pregunta").then((res) => {
+          if (res.data.pregunta) {
+            setMessages([{ type: "question", text: res.data.pregunta }]);
+          }
+        });
+        setReset(true);
+        setBlock(false);
+        Animated.timing(slideAnim, {
+          toValue: 0,
+          duration: 500,
+          useNativeDriver: true,
+        }).start();
+        const handleAnimationComplete = () => {
+          setReset(false);
+          slideAnim.setValue(-100);
+          fadeAnim.setValue(1);
+        };
+
+        setTimeout(() => {
+          Animated.timing(fadeAnim, {
+            toValue: 0,
+            duration: 500,
+            useNativeDriver: true,
+          }).start(handleAnimationComplete);
+        }, 2000); // Oculta el mensaje después de 2 segundos
+      }
+    });
+  };
+
   const handleSend = (message: string) => {
     if (message.trim() === "") return;
     setMessages((prevMessages) => [
       ...prevMessages,
       { type: "answer", text: message },
     ]);
-    //http://127.0.0.1:5000/respuesta
     axios
       .post("http://127.0.0.1:5000/respuesta", {
         respuesta: message,
@@ -53,6 +91,7 @@ function ChatBoxArea() {
             { type: "question", text: res.data.pregunta },
           ]);
         } else {
+          setBlock(true);
           setMessages((prevMessages) => [
             ...prevMessages,
             { type: "diagnostico", text: res.data.diagnostico },
@@ -63,27 +102,33 @@ function ChatBoxArea() {
   };
 
   const renderItem: ListRenderItem<Message> = ({ item }) => {
-    let textColor;
-    if (item.type === "question") {
-      textColor = "blue";
-    } else if (item.type === "answer") {
-      textColor = "green";
-    } else {
-      textColor = "red";
-    }
-
-    let displayText;
-    if (item.type === "question") {
-      displayText = `Pregunta: ${item.text}`;
-    } else if (item.type === "answer") {
-      displayText = `Respuesta: ${item.text}`;
-    } else {
-      displayText = `Diagnóstico: ${item.text}`;
-    }
+    const isQuestion = item.type === "question";
+    const isAnswer = item.type === "answer";
+    const isDiagnostico = item.type === "diagnostico";
 
     return (
-      <View style={styles.message}>
-        <Text style={{ fontSize: 16, color: textColor }}>{displayText}</Text>
+      <View
+        style={[
+          styles.message,
+          isQuestion && styles.questionMessage,
+          isAnswer && styles.answerMessage,
+          isDiagnostico && styles.diagnosticoMessage,
+        ]}
+      >
+        <Text
+          style={[
+            styles.messageText,
+            isQuestion && styles.questionText,
+            isAnswer && styles.answerText,
+            isDiagnostico && styles.diagnosticoText,
+          ]}
+        >
+          {item.type === "question"
+            ? `Pregunta: ${item.text}`
+            : item.type === "answer"
+            ? `Respuesta: ${item.text}`
+            : `Diagnóstico: ${item.text}`}
+        </Text>
       </View>
     );
   };
@@ -91,9 +136,14 @@ function ChatBoxArea() {
   return (
     <View style={{ flex: 1, paddingTop: insets.top }}>
       <View style={styles.div1}>
-        <Text style={{ fontSize: 28, marginBottom: 20 }}>Chatbox Area</Text>
-
-        <Text style={{ fontSize: 16 }}>Chatbox Area is in safe area.</Text>
+        <View style={styles.headerContainer}>
+          <Text style={styles.headerText}>Habla con Expertus</Text>
+          <Button
+            title="Reiniciar diagnóstico"
+            onPress={handleReset}
+            color="#6c757d" // Color plomo mejorado
+          />
+        </View>
         <FlatList
           ref={flatListRef}
           data={messages}
@@ -105,6 +155,18 @@ function ChatBoxArea() {
           }
           onLayout={() => flatListRef.current?.scrollToEnd({ animated: true })}
         />
+        {reset && (
+          <Animated.View
+            style={[
+              styles.resetMessage,
+              { transform: [{ translateY: slideAnim }], opacity: fadeAnim },
+            ]}
+          >
+            <Text style={styles.resetMessageText}>
+              Diagnóstico reiniciado. Puede comenzar un nuevo diagnóstico.
+            </Text>
+          </Animated.View>
+        )}
       </View>
       <KeyboardAvoidingView
         behavior={Platform.OS === "ios" ? "padding" : "height"}
@@ -115,12 +177,14 @@ function ChatBoxArea() {
           <TouchableOpacity
             style={[styles.button, styles.buttonSi]}
             onPress={() => handleSend("si")}
+            disabled={block}
           >
             <Text style={styles.buttonText}>SI</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, styles.buttonNo]}
             onPress={() => handleSend("no")}
+            disabled={block}
           >
             <Text style={styles.buttonText}>NO</Text>
           </TouchableOpacity>
@@ -144,9 +208,30 @@ const styles = StyleSheet.create({
     backgroundColor: "#d0d0d0",
     flex: 1,
   },
-  titleContainer: {
+  headerContainer: {
     flexDirection: "row",
-    gap: 8,
+    alignItems: "center",
+    justifyContent: "space-between",
+    marginBottom: 20,
+  },
+  headerText: {
+    fontSize: 28,
+  },
+  resetMessage: {
+    position: "absolute",
+    top: 0,
+    left: 0,
+    right: 0,
+    padding: 10,
+    backgroundColor: "#6c757d",
+    alignItems: "center",
+    justifyContent: "center",
+    zIndex: 1,
+  },
+  resetMessageText: {
+    fontSize: 16,
+    color: "white",
+    textAlign: "center",
   },
   inputContainer: {
     flexDirection: "column",
@@ -154,49 +239,33 @@ const styles = StyleSheet.create({
     backgroundColor: "#BBB",
   },
   buttonContainer: {
-    flexDirection: 'row',
-    justifyContent: 'center',
-    alignItems: 'center',
-    marginLeft: '8%'
+    flexDirection: "row",
+    justifyContent: "center",
+    alignItems: "center",
+    marginLeft: "8%",
   },
   button: {
     flex: 1,
-    marginHorizontal: 2.5, // Half of the separation (5px / 2)
+    marginHorizontal: 2.5,
     paddingVertical: 12,
     paddingHorizontal: 80,
     borderRadius: 8,
-    alignItems: 'center',
+    alignItems: "center",
   },
-  // buttonContainer: {
-  //   flexDirection: "row",
-  //   justifyContent: "space-between",
-  //   marginBottom: 8,
-  //   marginLeft: 10,
-  //   marginRight: 10,
-  // },
-  // button: {
-  //   fontWeight: 'bold',
-  //   flex: 1,
-  //   padding: 20,
-  //   borderRadius: 4,
-  //   alignItems: "center",
-  //   marginHorizontal: 5,
-  //   minWidth: "80%", // Cada botón ocupará el 40% del ancho disponible
-  // },
   buttonNo: {
     backgroundColor: "#f05330",
     fontWeight: "bold",
-    width: '50%',
+    width: "50%",
   },
   buttonSi: {
     backgroundColor: "#67b2f0",
     fontWeight: "bold",
-    width: '50%',
+    width: "50%",
   },
   buttonText: {
     color: "#fff",
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   textInput: {
     borderColor: "#ccc",
@@ -208,6 +277,32 @@ const styles = StyleSheet.create({
   message: {
     padding: 10,
     marginVertical: 5,
-    backgroundColor: "#d0d0d0",
+    borderRadius: 8,
+    maxWidth: "80%",
+  },
+  questionMessage: {
+    backgroundColor: "#007BFF",
+    alignSelf: "flex-start",
+  },
+  answerMessage: {
+    backgroundColor: "#007BFF",
+    alignSelf: "flex-end",
+  },
+  diagnosticoMessage: {
+    backgroundColor: "#28A745",
+    alignSelf: "center",
+  },
+  messageText: {
+    fontSize: 16,
+    color: "white",
+  },
+  questionText: {
+    textAlign: "left",
+  },
+  answerText: {
+    textAlign: "right",
+  },
+  diagnosticoText: {
+    textAlign: "center",
   },
 });
