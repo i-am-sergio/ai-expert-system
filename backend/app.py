@@ -1,8 +1,11 @@
 from flask import Flask, request, jsonify
 from flask_cors import CORS
 import db.extract_db as db
+import os
+from dotenv import load_dotenv
 
-
+load_dotenv()
+puerto = os.getenv("PORT", 5000)
 # conocimiento = {
 #     'cheeta': ['es mamífero', 'es carnívoro', 'tiene color leonado y puntos negros'],
 #     'tigre': ['es mamífero', 'es carnívoro', 'tiene color leonado', 'tiene rayas negras'],
@@ -124,4 +127,4 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True)
+    app.run(debug=True, port=int(puerto))
