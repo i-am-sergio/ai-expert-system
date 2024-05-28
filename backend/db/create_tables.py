@@ -42,6 +42,46 @@ carreras_preguntas = {
         "Aprendizaje rápido": "¿Tienes capacidad para aprender y adaptarte rápidamente a nuevas tecnologías?",
         "Diseño de software y arquitectura de sistemas": "¿Tienes buena comprensión de los principios de diseño de software y arquitectura de sistemas?"
     }
+    "Arquitectura": {
+        "Diseño arquitectónico": "¿Tienes habilidades en diseño y creatividad?",
+        "Conocimientos técnicos": "¿Tienes aptitud para comprender conceptos técnicos y estructurales?",
+        "Dibujo": "¿Eres competente en dibujo técnico y artístico?",
+        "Software de diseño": "¿Tienes experiencia en el uso de software de diseño como AutoCAD o Revit?",
+        "Planificación y gestión": "¿Tienes habilidades en planificación de proyectos y gestión de recursos?",
+        "Trabajo en equipo": "¿Puedes colaborar eficientemente con otros profesionales en proyectos?"
+    },
+    "Ingeniería Ambiental": {
+        "Ciencias naturales": "¿Tienes aptitud para las ciencias biológicas, químicas y ambientales?",
+        "Resolución de problemas": "¿Eres capaz de identificar y resolver problemas ambientales complejos?",
+        "Regulaciones ambientales": "¿Tienes conocimientos sobre leyes y regulaciones ambientales?",
+        "Trabajo de campo": "¿Te gusta trabajar al aire libre y realizar investigaciones de campo?",
+        "Análisis de datos": "¿Eres capaz de analizar y interpretar datos ambientales?",
+        "Comunicación": "¿Tienes habilidades para comunicarte efectivamente con comunidades y partes interesadas?"
+    },
+    "Enfermería": {
+        "Atención al paciente": "¿Tienes habilidades interpersonales y empatía para el cuidado del paciente?",
+        "Conocimientos médicos": "¿Tienes aptitud para asimilar conocimientos de ciencias de la salud?",
+        "Trabajo en equipo": "¿Puedes trabajar eficientemente en equipo con otros profesionales de la salud?",
+        "Resistencia física y emocional": "¿Tienes la capacidad de manejar el estrés y trabajar largas horas?",
+        "Habilidades técnicas": "¿Tienes competencia en procedimientos médicos y uso de equipos médicos?",
+        "Ética profesional": "¿Tienes una fuerte ética profesional y confidencialidad?"
+    },
+    "Derecho": {
+        "Análisis crítico": "¿Tienes habilidades para el análisis crítico y la argumentación lógica?",
+        "Comprensión de leyes": "¿Tienes interés y capacidad para entender y aplicar leyes y regulaciones?",
+        "Comunicación": "¿Tienes habilidades de comunicación verbal y escrita para presentar casos?",
+        "Investigación": "¿Eres capaz de realizar investigaciones jurídicas exhaustivas?",
+        "Resolución de conflictos": "¿Tienes habilidades para la negociación y la resolución de conflictos?",
+        "Ética profesional": "¿Tienes una fuerte ética profesional y compromiso con la justicia?"
+    },
+    "Administración de Empresas": {
+        "Liderazgo": "¿Tienes habilidades de liderazgo y gestión de equipos?",
+        "Toma de decisiones": "¿Eres capaz de tomar decisiones estratégicas y tácticas?",
+        "Análisis financiero": "¿Tienes aptitudes para el análisis financiero y la gestión de recursos?",
+        "Planificación estratégica": "¿Tienes habilidades en planificación estratégica y desarrollo empresarial?",
+        "Comunicación": "¿Tienes habilidades de comunicación efectiva en diferentes contextos?",
+        "Innovación y emprendimiento": "¿Tienes creatividad y visión para la innovación y el emprendimiento?"
+    }
 }
 
 # Conectarse a la base de datos (o crearla si no existe)
