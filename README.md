@@ -103,7 +103,14 @@ This project is an Expert System for Vocational Guidance designed to help users 
 
 1. **Clone the repository**
 
-2. **Backend:**
+2. **Database:**
+
+    -Install SQLite;
+    ```bash
+    sudo apt install sqlite3
+    ```
+
+3. **Backend:**
 
     - From the root of the project:
     ```bash
@@ -126,7 +133,7 @@ This project is an Expert System for Vocational Guidance designed to help users 
     flask --app app run
     ```
 
-3. **Frontend:**
+4. **Frontend:**
 
     - From the root of the project:
     ```bash
