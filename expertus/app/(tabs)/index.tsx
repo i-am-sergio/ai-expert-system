@@ -1,33 +1,29 @@
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { HelloWave } from '@/components/HelloWave';
-import ParallaxScrollView from '@/components/ParallaxScrollView';
-import { ThemedText } from '@/components/ThemedText';
-import { ThemedView } from '@/components/ThemedView';
-import CareerCard from '@/components/CareerCard';
+import { StyleSheet, Text, View, ScrollView } from "react-native";
+import CareerCard from "@/components/CareerCard";
+import axios from "axios";
+import { useEffect, useState } from "react";
 
 interface Career {
   title: string;
-  description: string;
 }
 
-const careers: Career[] = [
-  { title: 'Ingeniería en Sistemas', description: 'Desarrollo y mantenimiento de sistemas informáticos.' },
-  { title: 'Medicina', description: 'Diagnóstico y tratamiento de enfermedades.' },
-  { title: 'Derecho', description: 'Asesoramiento y representación legal.' },
-  { title: 'Arquitectura', description: 'Diseño y construcción de edificaciones.' },
-  { title: 'Psicología', description: 'Estudio del comportamiento humano.' },
-  { title: 'Marketing', description: 'Promoción y venta de productos y servicios.' },
-  { title: 'Educación', description: 'Enseñanza y formación académica.' },
-  { title: 'Diseño Gráfico', description: 'Creación de contenido visual.' },
-  { title: 'Ingeniería Civil', description: 'Diseño y construcción de infraestructuras.' },
-  { title: 'Biología', description: 'Estudio de los organismos vivos y sus interacciones.' },
-  { title: 'Contabilidad', description: 'Gestión financiera y fiscal de empresas.' },
-  { title: 'Nutrición', description: 'Estudio de la alimentación y su impacto en la salud.' },
-  { title: 'Administración de Empresas', description: 'Gestión y dirección de organizaciones.' },
-  { title: 'Periodismo', description: 'Investigación y difusión de noticias y eventos.' },
-];
-
 export default function HomeScreen() {
+  const [careers, setCareers] = useState<Career[]>([]);
+
+  useEffect(() => {
+    axios
+      .get(
+        "https://ai-expert-system-vocational-guidance-gbod.onrender.com/course"
+      )
+      .then((response) => {
+        const data = response.data.map((title: string) => ({ title }));
+        setCareers(data);
+      })
+      .catch((error) => {
+        console.error("Error fetching careers:", error);
+      });
+  }, []);
+
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
@@ -36,16 +32,14 @@ export default function HomeScreen() {
         </View>
         <View style={styles.descriptionContainer}>
           <Text style={styles.description}>
-            Expertus es tu guía experta en orientación vocacional. Responde preguntas simples para descubrir las carreras universitarias que mejor se adaptan a ti.
+            Expertus es tu guía experta en orientación vocacional. Responde
+            preguntas simples para descubrir las carreras universitarias que
+            mejor se adaptan a ti.
           </Text>
         </View>
         <View style={styles.grid}>
           {careers.map((career, index) => (
-            <CareerCard
-              key={index}
-              title={career.title}
-              description={career.description}
-            />
+            <CareerCard key={index} title={career.title} description="" />
           ))}
         </View>
       </ScrollView>
@@ -57,10 +51,10 @@ const styles = StyleSheet.create({
   container: {
     marginTop: 30,
     flex: 1,
-    backgroundColor: '#F5F5F5',
+    backgroundColor: "#F5F5F5",
   },
   scrollViewContent: {
-    alignItems: 'center',
+    alignItems: "center",
     paddingVertical: 16,
   },
   headerContainer: {
@@ -68,9 +62,9 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 28, // Tamaño de la fuente
-    fontWeight: 'bold', // Grosor de la fuente
-    color: '#333', // Color del texto
-    textAlign: 'center', // Alineación del texto
+    fontWeight: "bold", // Grosor de la fuente
+    color: "#333", // Color del texto
+    textAlign: "center", // Alineación del texto
     marginTop: 20, // Espacio superior
     marginBottom: 10, // Espacio inferior
   },
@@ -80,13 +74,13 @@ const styles = StyleSheet.create({
   },
   description: {
     fontSize: 16,
-    textAlign: 'center',
-    color: '#666',
+    textAlign: "center",
+    color: "#666",
   },
   grid: {
-    flexDirection: 'row',
-    flexWrap: 'wrap',
-    justifyContent: 'space-around',
+    flexDirection: "row",
+    flexWrap: "wrap",
+    justifyContent: "space-around",
     paddingHorizontal: 8,
   },
 });
