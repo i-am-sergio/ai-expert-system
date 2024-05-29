@@ -16,6 +16,7 @@ import {
 } from "react-native-safe-area-context";
 import axios from "axios";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';  // Importar GestureHandlerRootView
 
 type Message = {
   type: "question" | "answer" | "diagnostico";
@@ -34,44 +35,56 @@ function ChatBoxArea() {
 
   useEffect(() => {
     // Obtener la pregunta inicial
-    axios.get("http://127.0.0.1:5000/pregunta").then((res) => {
-      if (res.data.pregunta) {
-        setMessages([{ type: "question", text: res.data.pregunta }]);
-      }
-    });
+    axios
+      .get(
+        "https://ai-expert-system-vocational-guidance-gbod.onrender.com/pregunta"
+      )
+      .then((res) => {
+        if (res.data.pregunta) {
+          setMessages([{ type: "question", text: res.data.pregunta }]);
+        }
+      });
   }, []);
 
   const handleReset = () => {
     setMessages([]);
-    axios.post("http://127.0.0.1:5000/nuevo_diagnostico").then((res) => {
-      if (res.data.mensaje) {
-        axios.get("http://127.0.0.1:5000/pregunta").then((res) => {
-          if (res.data.pregunta) {
-            setMessages([{ type: "question", text: res.data.pregunta }]);
-          }
-        });
-        setReset(true);
-        setBlock(false);
-        Animated.timing(slideAnim, {
-          toValue: 0,
-          duration: 500,
-          useNativeDriver: true,
-        }).start();
-        const handleAnimationComplete = () => {
-          setReset(false);
-          slideAnim.setValue(-100);
-          fadeAnim.setValue(1);
-        };
-
-        setTimeout(() => {
-          Animated.timing(fadeAnim, {
+    axios
+      .post(
+        "https://ai-expert-system-vocational-guidance-gbod.onrender.com/nuevo_diagnostico"
+      )
+      .then((res) => {
+        if (res.data.mensaje) {
+          axios
+            .get(
+              "https://ai-expert-system-vocational-guidance-gbod.onrender.com/pregunta"
+            )
+            .then((res) => {
+              if (res.data.pregunta) {
+                setMessages([{ type: "question", text: res.data.pregunta }]);
+              }
+            });
+          setReset(true);
+          setBlock(false);
+          Animated.timing(slideAnim, {
             toValue: 0,
             duration: 500,
             useNativeDriver: true,
-          }).start(handleAnimationComplete);
-        }, 2000); // Oculta el mensaje después de 2 segundos
-      }
-    });
+          }).start();
+          const handleAnimationComplete = () => {
+            setReset(false);
+            slideAnim.setValue(-100);
+            fadeAnim.setValue(1);
+          };
+
+          setTimeout(() => {
+            Animated.timing(fadeAnim, {
+              toValue: 0,
+              duration: 500,
+              useNativeDriver: true,
+            }).start(handleAnimationComplete);
+          }, 2000); // Oculta el mensaje después de 2 segundos
+        }
+      });
   };
 
   const handleSend = (message: string) => {
@@ -81,9 +94,12 @@ function ChatBoxArea() {
       { type: "answer", text: message },
     ]);
     axios
-      .post("http://127.0.0.1:5000/respuesta", {
-        respuesta: message,
-      })
+      .post(
+        "https://ai-expert-system-vocational-guidance-gbod.onrender.com/respuesta",
+        {
+          respuesta: message,
+        }
+      )
       .then((res) => {
         if (res.data.pregunta) {
           setMessages((prevMessages) => [
@@ -197,7 +213,9 @@ function ChatBoxArea() {
 export default function Chatbox() {
   return (
     <SafeAreaProvider>
-      <ChatBoxArea />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ChatBoxArea />
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   );
 }

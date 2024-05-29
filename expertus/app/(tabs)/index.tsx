@@ -1,7 +1,9 @@
-import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { ScreenContainer } from 'react-native-screens';
-import CareerCard from '@/components/CareerCard';  // Asegúrate de tener la ruta correcta
+import { HelloWave } from '@/components/HelloWave';
+import ParallaxScrollView from '@/components/ParallaxScrollView';
+import { ThemedText } from '@/components/ThemedText';
+import { ThemedView } from '@/components/ThemedView';
+import CareerCard from '@/components/CareerCard';
 
 interface Career {
   title: string;
@@ -25,9 +27,9 @@ const careers: Career[] = [
   { title: 'Periodismo', description: 'Investigación y difusión de noticias y eventos.' },
 ];
 
-const HomeScreen: React.FC = () => {
+export default function HomeScreen() {
   return (
-    <ScreenContainer style={styles.container}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.headerContainer}>
           <Text style={styles.title}>Bienvenido a Expertus</Text>
@@ -47,7 +49,7 @@ const HomeScreen: React.FC = () => {
           ))}
         </View>
       </ScrollView>
-    </ScreenContainer>
+    </View>
   );
 }
 
@@ -88,5 +90,3 @@ const styles = StyleSheet.create({
     paddingHorizontal: 8,
   },
 });
-
-export default HomeScreen;

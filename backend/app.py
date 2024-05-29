@@ -6,17 +6,6 @@ from dotenv import load_dotenv
 
 load_dotenv()
 puerto = os.getenv("PORT", 5000)
-# conocimiento = {
-#     'cheeta': ['es mamífero', 'es carnívoro', 'tiene color leonado y puntos negros'],
-#     'tigre': ['es mamífero', 'es carnívoro', 'tiene color leonado', 'tiene rayas negras'],
-#     'jirafa': ['es ungulado', 'tiene cuello largo', 'tiene piernas largas'],
-#     'zebra': ['es ungulado', 'tiene rayas negras'],
-#     'aveztruz': ['es un pájaro', 'no vuela', 'tiene cuello largo'],
-#     'pingüino': ['es un pájaro', 'no vuela', 'sabe nadar', 'es blanco con negro'],
-#     'albatros': ['es un pájaro', 'aparece en historias marinas', 'vuela bien']
-# }
-
-# Lista para almacenar los síntomas conocidos
 conocimiento = {}
 conocido = []
 current_symptom = None
@@ -127,4 +116,4 @@ def create_app():
 
 if __name__ == '__main__':
     app = create_app()
-    app.run(debug=True, port=int(puerto))
+    app.run(debug=True,host='0.0.0.0', port=int(puerto))
