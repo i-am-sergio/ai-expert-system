@@ -16,6 +16,7 @@ import {
 } from "react-native-safe-area-context";
 import axios from "axios";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';  // Importar GestureHandlerRootView
 
 type Message = {
   type: "question" | "answer" | "diagnostico";
@@ -212,7 +213,9 @@ function ChatBoxArea() {
 export default function Chatbox() {
   return (
     <SafeAreaProvider>
-      <ChatBoxArea />
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ChatBoxArea />
+      </GestureHandlerRootView>
     </SafeAreaProvider>
   );
 }

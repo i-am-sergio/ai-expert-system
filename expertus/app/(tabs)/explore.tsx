@@ -1,6 +1,5 @@
 import React from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { ScreenContainer } from 'react-native-screens';
 import UniversityCard from '@/components/UniversityCard'; // Asegúrate de tener la ruta correcta
 
 interface Career {
@@ -61,7 +60,6 @@ const universities: University[] = [
   }
 ];
 
-
 const ExploreScreen: React.FC = () => {
   const handleCareerPress = (career: Career) => {
     console.log(`Navigating to details of ${career.title}`);
@@ -69,7 +67,7 @@ const ExploreScreen: React.FC = () => {
   };
 
   return (
-    <ScreenContainer style={styles.container}>
+    <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.scrollViewContent}>
         <View style={styles.headerContainer}>
           <Text style={styles.title}>Explorar Universidades</Text>
@@ -83,7 +81,7 @@ const ExploreScreen: React.FC = () => {
           />
         ))}
       </ScrollView>
-    </ScreenContainer>
+    </View>
   );
 };
 
