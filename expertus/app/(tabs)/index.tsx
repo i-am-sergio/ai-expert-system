@@ -16,13 +16,22 @@ export default function HomeScreen() {
         "https://ai-expert-system-vocational-guidance-gbod.onrender.com/course"
       )
       .then((response) => {
-        const data = response.data.map((title: string) => ({ title }));
+        const data = response.data.map((title: string) => ({
+          title: formatTitle(title),
+        }));
         setCareers(data);
       })
       .catch((error) => {
         console.error("Error fetching careers:", error);
       });
   }, []);
+
+  const formatTitle = (title: string) => {
+    return title
+      .split("_")
+      .map((word) => word.charAt(0).toUpperCase() + word.slice(1).toLowerCase())
+      .join(" ");
+  };
 
   return (
     <View style={styles.container}>
