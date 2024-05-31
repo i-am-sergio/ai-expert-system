@@ -30,6 +30,7 @@ function ChatBoxArea() {
   const flatListRef = useRef<FlatList>(null);
   const [reset, setReset] = useState(false);
   const [block, setBlock] = useState(false);
+  const [explainer, setExplainer] = useState([]);
 
   const slideAnim = useRef(new Animated.Value(-80)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;
@@ -113,6 +114,7 @@ function ChatBoxArea() {
             ...prevMessages,
             { type: "diagnostico", text: res.data.diagnostico },
           ]);
+          setExplainer(res.data.explicacion);
         }
         flatListRef.current?.scrollToEnd({ animated: true });
       });
@@ -151,6 +153,16 @@ function ChatBoxArea() {
         >
           {`${messageType}: ${item.text}`}
         </Text>
+        {isDiagnostico && (
+          <View style={styles.diagnostico}>
+            <Text style={styles.explanationTitle}>Explicación:</Text>
+            {explainer.map((exp, index) => (
+              <Text key={exp} style={styles.explanationText}>
+                - {exp}
+              </Text>
+            ))}
+          </View>
+        )}
       </View>
     );
   };
@@ -331,7 +343,7 @@ const styles = StyleSheet.create({
     alignSelf: "flex-end",
   },
   diagnosticoMessage: {
-    backgroundColor: "#28A745",
+    backgroundColor: "#e9c3fa",
     alignSelf: "center",
   },
   questionText: {
@@ -346,5 +358,26 @@ const styles = StyleSheet.create({
   },
   diagnosticoText: {
     textAlign: "center",
+    fontWeight: "bold",
+    color: "#000",
   },
+  diagnostico: {
+    marginTop: 10,
+    padding: 10,
+    color: "#ffffff",
+    borderRadius: 8,
+  },
+  explanationTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+    color: "#000",
+  },
+  explanationText: {
+    justifyContent: "center",
+    fontSize: 14,
+    color: "#000",
+  },
+
+
 });
