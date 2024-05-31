@@ -41,7 +41,7 @@ carreras_preguntas = {
         "Trabajo en equipo": "¿Tienes habilidades de trabajo en equipo y colaboración?",
         "Aprendizaje rápido": "¿Tienes capacidad para aprender y adaptarte rápidamente a nuevas tecnologías?",
         "Diseño de software y arquitectura de sistemas": "¿Tienes buena comprensión de los principios de diseño de software y arquitectura de sistemas?"
-    }
+    },
     "Arquitectura": {
         "Diseño arquitectónico": "¿Tienes habilidades en diseño y creatividad?",
         "Conocimientos técnicos": "¿Tienes aptitud para comprender conceptos técnicos y estructurales?",
@@ -81,7 +81,7 @@ carreras_preguntas = {
         "Planificación estratégica": "¿Tienes habilidades en planificación estratégica y desarrollo empresarial?",
         "Comunicación": "¿Tienes habilidades de comunicación efectiva en diferentes contextos?",
         "Innovación y emprendimiento": "¿Tienes creatividad y visión para la innovación y el emprendimiento?"
-    }
+    },
     "Contabilidad": {
         "Análisis financiero": "¿Tienes habilidades en el análisis financiero y gestión de cuentas?",
         "Matemáticas": "¿Tienes aptitudes para las matemáticas y la estadística?",

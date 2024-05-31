@@ -161,36 +161,3 @@ carreras = {
         "Trabajo en equipo": "¿Puedes colaborar eficientemente con otros profesionales en proyectos?"
     }
 }
-
-# Ejemplo de acceso a la información:
-print("Habilidades técnicas para Ingeniería Civil:", carreras["Ingeniería Civil"]["Habilidades técnicas"])
-
-
-# Version 2 para origanizar la info
-orientacion_vocacional = {
-    'Ingeniería de Software': {
-        'descripcion': 'Ingeniería de Software es una disciplina que se enfoca en el diseño, desarrollo y mantenimiento de software.',
-        'habilidades': ['programación', 'análisis de algoritmos', 'resolución de problemas', 'trabajo en equipo'],
-        'salida_laboral': 'desarrollador de software, ingeniero de software, arquitecto de software'
-    },
-    'Medicina': {
-        'descripcion': 'Medicina es la ciencia y práctica del diagnóstico, tratamiento y prevención de enfermedades.',
-        'habilidades': ['comprensión del cuerpo humano', 'habilidades de comunicación', 'pensamiento crítico', 'empatía'],
-        'salida_laboral': 'médico, cirujano, especialista en áreas específicas de la medicina'
-    },
-    'Derecho': {
-        'descripcion': 'Derecho es el conjunto de normas jurídicas que regulan la convivencia social y permiten resolver conflictos de manera pacífica.',
-        'habilidades': ['pensamiento analítico', 'habilidades de argumentación', 'investigación', 'comprensión de la ley'],
-        'salida_laboral': 'abogado, juez, fiscal, asesor legal'
-    },
-    'Arquitectura': {
-        'descripcion': 'Arquitectura es el arte y técnica de proyectar, diseñar y construir edificios y estructuras.',
-        'habilidades': ['creatividad', 'dibujo técnico', 'conocimientos de construcción', 'gestión de proyectos'],
-        'salida_laboral': 'arquitecto, diseñador urbano, gestor de proyectos de construcción'
-    },
-    'Psicología': {
-        'descripcion': 'Psicología es la ciencia que estudia el comportamiento humano y los procesos mentales.',
-        'habilidades': ['empatía', 'escucha activa', 'análisis del comportamiento', 'asesoramiento'],
-        'salida_laboral': 'psicólogo clínico, psicólogo educativo, psicólogo organizacional'
-    }
-}
