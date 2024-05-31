@@ -5,9 +5,7 @@ import {
   View,
   Text,
   TextInput,
-  Button,
   StyleSheet,
-  Touchable,
 } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 

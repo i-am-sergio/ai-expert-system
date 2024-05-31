@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
-import { View, Text, TextInput, Button, StyleSheet, Touchable } from 'react-native';
+import { View, Text, TextInput, Button, StyleSheet, Touchable, Alert } from 'react-native';
 import { useNavigation } from 'expo-router';
 import { TouchableOpacity } from 'react-native-gesture-handler';
+import axios from 'axios';
 
 export default function RegisterScreen() {
   const [email, setEmail] = useState('');
@@ -9,10 +10,19 @@ export default function RegisterScreen() {
   const navigation = useNavigation();
 
   const handleRegister = () => {
-    // Aquí iría la lógica de registro
-    
+    axios.post('https://ai-expert-system-vocational-guidance-gbod.onrender.com/register', {
+      username: email,
+      password: password,
+    })
+    .then((response) => {
+      Alert.alert('Registro exitoso', 'Usuario registrado con éxito');
+      navigation.goBack(); // Navigate back to the login screen
+    })
+    .catch((error) => {
+      Alert.alert('Error', 'Hubo un problema con el registro');
+      console.error("Error registering user:", error);
+    });
   };
-
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Register</Text>
