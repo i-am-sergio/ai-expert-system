@@ -46,7 +46,7 @@ export default function RootLayout() {
       <GestureHandlerRootView style={{ flex: 1 }}>
         <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
           <Stack.Navigator>
-            <Stack.Screen name="login">
+            <Stack.Screen name="login"  options={{ headerShown: false }}>
               {(props) => <LoginScreen {...props} onLogin={handleLogin} />}
             </Stack.Screen>
             <Stack.Screen name="register" component={RegisterScreen} options={{ headerShown: false }} />
