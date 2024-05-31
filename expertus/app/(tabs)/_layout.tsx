@@ -27,7 +27,7 @@ export default function TabLayout() {
   return (
     <Tab.Navigator
       screenOptions={({ route }) => ({
-        tabBarActiveTintColor: colors.text,
+        tabBarActiveTintColor: '#8948c7',
         // tabBarInactiveTintColor: colors.placeholder,
         tabBarStyle: { backgroundColor: colors.card },
         headerShown: false,
@@ -42,7 +42,7 @@ export default function TabLayout() {
           const iconName = focused ? iconObject.focused : iconObject.unfocused;
 
           // Renderizar el ícono
-          return <TabBarIcon name={iconName} color="#0AF" />;
+          return <TabBarIcon name={iconName} color="#8948c7" />;
         },
       })}
     >
@@ -52,4 +52,11 @@ export default function TabLayout() {
       <Tab.Screen name="settings" component={SettingsScreen} options={{ title: 'Settings' }} />
     </Tab.Navigator>
   );
+}
+
+
+const styles = {
+  tabColor : {
+    backgroundColor: "#8948c7",
+  }
 }

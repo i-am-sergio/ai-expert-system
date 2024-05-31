@@ -10,6 +10,7 @@ import LoginScreen from './login';
 import RegisterScreen from './register';
 import TabLayout from './(tabs)/_layout';
 import NotFoundScreen from './+not-found';
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
 SplashScreen.preventAutoHideAsync();
@@ -42,15 +43,17 @@ export default function RootLayout() {
   // Si el usuario no está autenticado, muestra la vista de inicio de sesión
   if (!isLoggedIn) {
     return (
-      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-        <Stack.Navigator>
-          <Stack.Screen name="login">
-            {(props) => <LoginScreen {...props} onLogin={handleLogin} />}
-          </Stack.Screen>
-          <Stack.Screen name="register" component={RegisterScreen} options={{ headerShown: false }} />
-          <Stack.Screen name="+not-found" component={NotFoundScreen} />
-        </Stack.Navigator>
-      </ThemeProvider>
+      <GestureHandlerRootView style={{ flex: 1 }}>
+        <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+          <Stack.Navigator>
+            <Stack.Screen name="login">
+              {(props) => <LoginScreen {...props} onLogin={handleLogin} />}
+            </Stack.Screen>
+            <Stack.Screen name="register" component={RegisterScreen} options={{ headerShown: false }} />
+            <Stack.Screen name="+not-found" component={NotFoundScreen} />
+          </Stack.Navigator>
+        </ThemeProvider>
+      </GestureHandlerRootView>
     );
 }
 

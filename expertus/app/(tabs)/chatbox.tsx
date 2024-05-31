@@ -7,7 +7,6 @@ import {
   Platform,
   FlatList,
   ListRenderItem,
-  Button,
   Animated,
 } from "react-native";
 import {
@@ -32,7 +31,7 @@ function ChatBoxArea() {
   const [reset, setReset] = useState(false);
   const [block, setBlock] = useState(false);
 
-  const slideAnim = useRef(new Animated.Value(-100)).current;
+  const slideAnim = useRef(new Animated.Value(-80)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -145,7 +144,6 @@ function ChatBoxArea() {
       >
         <Text
           style={[
-            styles.messageText,
             isQuestion && styles.questionText,
             isAnswer && styles.answerText,
             isDiagnostico && styles.diagnosticoText,
@@ -161,12 +159,10 @@ function ChatBoxArea() {
     <View style={{ flex: 1, paddingTop: insets.top }}>
       <View style={styles.div1}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Habla con Expertus</Text>
-          <Button
-            title="Reiniciar diagnóstico"
-            onPress={handleReset}
-            color="#6c757d" // Color plomo mejorado
-          />
+          <Text style={styles.headerText}>Habla con Expertus !!! </Text>
+          <TouchableOpacity onPress={handleReset}>
+            <Text style={styles.rebootLink}>Reiniciar diagnóstico</Text>
+          </TouchableOpacity>
         </View>
         <FlatList
           ref={flatListRef}
@@ -203,14 +199,14 @@ function ChatBoxArea() {
             onPress={() => handleSend("si")}
             disabled={block}
           >
-            <Text style={styles.buttonText}>SI</Text>
+            <Text style={styles.buttonTextSi}>SI</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, styles.buttonNo]}
             onPress={() => handleSend("no")}
             disabled={block}
           >
-            <Text style={styles.buttonText}>NO</Text>
+            <Text style={styles.buttonTextNo}>NO</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -231,7 +227,8 @@ export default function ChatboxScreen() {
 const styles = StyleSheet.create({
   div1: {
     padding: 20,
-    backgroundColor: "#d0d0d0",
+    backgroundColor: "#ffffff",
+    paddingBottom: 30,
     flex: 1,
   },
   headerContainer: {
@@ -241,7 +238,25 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerText: {
+    width: 200,
     fontSize: 24,
+    fontWeight: "800",
+    color: "#333",
+  },
+  headerReboot: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 60,
+    borderRadius: 8,
+  },
+  rebootLink: {
+    width: 100,
+    color: "#8948c7",
+    fontSize: 16,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    textAlign: "center",
   },
   resetMessage: {
     position: "absolute",
@@ -262,34 +277,42 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "column",
     padding: 8,
-    backgroundColor: "#BBB",
+    backgroundColor: "#ffffff",
   },
   buttonNo: {
-    backgroundColor: "#f05330",
+    color: "#000",
+    backgroundColor: "#ffffff",
+    borderColor: "#8948c7",
+    borderWidth: 1,
     fontWeight: "bold",
   },
   buttonSi: {
-    backgroundColor: "#67b2f0",
+    backgroundColor: "#8948c7",
     fontWeight: "bold",
   },
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-around",
     width: "100%",
-    height: 50,
+    height: 45,
+    backgroundColor: "#ffffff",
   },
 
   button: {
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
-    backgroundColor: "#007BFF",
     paddingHorizontal: 60,
     borderRadius: 8,
   },
 
-  buttonText: {
+  buttonTextSi: {
     color: "white",
+    fontWeight: "bold",
+    fontSize: 16,
+  },
+  buttonTextNo: {
+    color: "#8948c7",
     fontWeight: "bold",
     fontSize: 16,
   },
@@ -300,25 +323,25 @@ const styles = StyleSheet.create({
     maxWidth: "80%",
   },
   questionMessage: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#8948c7",
     alignSelf: "flex-start",
   },
   answerMessage: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#ededed",
     alignSelf: "flex-end",
   },
   diagnosticoMessage: {
     backgroundColor: "#28A745",
     alignSelf: "center",
   },
-  messageText: {
-    fontSize: 16,
-    color: "white",
-  },
   questionText: {
+    fontSize: 16,
+    color: "#ffffff",
     textAlign: "left",
   },
   answerText: {
+    fontSize: 16,
+    color: "#000",
     textAlign: "right",
   },
   diagnosticoText: {
