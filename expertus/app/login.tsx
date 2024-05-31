@@ -1,3 +1,4 @@
+import axios from "axios";
 import { useRouter } from "expo-router";
 import React, { useState } from "react";
 import {
@@ -15,14 +16,26 @@ export default function LoginScreen({ onLogin }: any) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    // Verifica las credenciales
-    if (email === "user@gmail.com" && password === "12345") {
-      // Llama a la función onLogin que se pasa como prop
-      onLogin();
-    } else {
-      // Muestra un mensaje de error o toma otra acción
-      alert("Credenciales incorrectas");
+  const handleLogin = async () => {
+    try {
+      console.log(email, password)
+      const response = await axios.post(
+        "https://ai-expert-system-vocational-guidance-gbod.onrender.com/login",
+        {
+          username: email,
+          password: password,
+        }
+      );
+      console.log(response.data)
+      // Manejar la respuesta
+      if (response.data.mensaje === "Inicio de sesión exitoso") {
+        onLogin();
+      } else {
+        alert("Credenciales incorrectas");
+      }
+    } catch (error) {
+      console.error("Error durante el inicio de sesión:", error);
+      alert("Error durante el inicio de sesión. Por favor, intenta nuevamente.");
     }
   };
 

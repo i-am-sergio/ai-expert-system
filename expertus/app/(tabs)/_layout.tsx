@@ -20,7 +20,7 @@ const iconNames = [
   { route: 'settings', focused: 'settings', unfocused: 'settings-outline' },
 ];
 
-export default function TabLayout() {
+export default function TabLayout({ setIsLoggedIn }: any) {
   const colorScheme = useColorScheme(); // Aquí obtenemos el esquema de color
   const { colors } = useTheme();
 
@@ -49,8 +49,10 @@ export default function TabLayout() {
       <Tab.Screen name="index" component={HomeScreen} options={{ title: 'Home' }} />
       <Tab.Screen name="chatbox" component={ChatboxScreen} options={{ title: 'Chatbox' }} />
       <Tab.Screen name="explore" component={ExploreScreen} options={{ title: 'Explore' }} />
-      <Tab.Screen name="settings" component={SettingsScreen} options={{ title: 'Settings' }} />
-    </Tab.Navigator>
+      <Tab.Screen name="settings">
+        {(props) => <SettingsScreen {...props} setIsLoggedIn={setIsLoggedIn} />}
+      </Tab.Screen>
+      </Tab.Navigator>
   );
 }
 

@@ -59,11 +59,15 @@ export default function RootLayout() {
 
   // Si el usuario está autenticado, muestra las pantallas de navegación
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack.Navigator>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} component={TabLayout} />
-        <Stack.Screen name="+not-found" component={NotFoundScreen} />
-      </Stack.Navigator>
-    </ThemeProvider>
+    <GestureHandlerRootView style={{ flex: 1 }}>
+      <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
+        <Stack.Navigator>
+          <Stack.Screen name="(tabs)" options={{ headerShown: false }}>
+            {(props) => <TabLayout {...props} setIsLoggedIn={setIsLoggedIn} />}
+          </Stack.Screen>
+          <Stack.Screen name="+not-found" component={NotFoundScreen} />
+        </Stack.Navigator>
+      </ThemeProvider>
+    </GestureHandlerRootView>
   );
 }
