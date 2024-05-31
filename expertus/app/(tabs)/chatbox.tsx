@@ -15,8 +15,10 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import axios from "axios";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';  // Importar GestureHandlerRootView
+import {
+  TouchableOpacity,
+  GestureHandlerRootView,
+} from "react-native-gesture-handler";
 
 type Message = {
   type: "question" | "answer" | "diagnostico";
@@ -122,6 +124,16 @@ function ChatBoxArea() {
     const isAnswer = item.type === "answer";
     const isDiagnostico = item.type === "diagnostico";
 
+    let messageType = "";
+
+    if (isQuestion) {
+      messageType = "Pregunta";
+    } else if (isAnswer) {
+      messageType = "Respuesta";
+    } else if (isDiagnostico) {
+      messageType = "Diagnóstico";
+    }
+
     return (
       <View
         style={[
@@ -139,11 +151,7 @@ function ChatBoxArea() {
             isDiagnostico && styles.diagnosticoText,
           ]}
         >
-          {item.type === "question"
-            ? `Pregunta: ${item.text}`
-            : item.type === "answer"
-            ? `Respuesta: ${item.text}`
-            : `Diagnóstico: ${item.text}`}
+          {`${messageType}: ${item.text}`}
         </Text>
       </View>
     );
@@ -210,7 +218,7 @@ function ChatBoxArea() {
   );
 }
 
-export default function Chatbox() {
+export default function ChatboxScreen() {
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -233,7 +241,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerText: {
-    fontSize: 28,
+    fontSize: 24,
   },
   resetMessage: {
     position: "absolute",
@@ -256,41 +264,34 @@ const styles = StyleSheet.create({
     padding: 8,
     backgroundColor: "#BBB",
   },
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: "8%",
-  },
-  button: {
-    flex: 1,
-    marginHorizontal: 2.5,
-    paddingVertical: 12,
-    paddingHorizontal: 80,
-    borderRadius: 8,
-    alignItems: "center",
-  },
   buttonNo: {
     backgroundColor: "#f05330",
     fontWeight: "bold",
-    width: "50%",
   },
   buttonSi: {
     backgroundColor: "#67b2f0",
     fontWeight: "bold",
-    width: "50%",
   },
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-around",
+    width: "100%",
+    height: 50,
+  },
+
+  button: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    backgroundColor: "#007BFF",
+    paddingHorizontal: 60,
+    borderRadius: 8,
+  },
+
   buttonText: {
-    color: "#fff",
-    fontSize: 16,
+    color: "white",
     fontWeight: "bold",
-  },
-  textInput: {
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 4,
-    padding: 8,
-    marginTop: 8,
+    fontSize: 16,
   },
   message: {
     padding: 10,
