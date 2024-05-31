@@ -7,7 +7,6 @@ import {
   Platform,
   FlatList,
   ListRenderItem,
-  Button,
   Animated,
 } from "react-native";
 import {
@@ -15,8 +14,10 @@ import {
   useSafeAreaInsets,
 } from "react-native-safe-area-context";
 import axios from "axios";
-import { TouchableOpacity } from "react-native-gesture-handler";
-import { GestureHandlerRootView } from 'react-native-gesture-handler';  // Importar GestureHandlerRootView
+import {
+  TouchableOpacity,
+  GestureHandlerRootView,
+} from "react-native-gesture-handler";
 
 type Message = {
   type: "question" | "answer" | "diagnostico";
@@ -29,8 +30,9 @@ function ChatBoxArea() {
   const flatListRef = useRef<FlatList>(null);
   const [reset, setReset] = useState(false);
   const [block, setBlock] = useState(false);
+  const [explainer, setExplainer] = useState([]);
 
-  const slideAnim = useRef(new Animated.Value(-100)).current;
+  const slideAnim = useRef(new Animated.Value(-80)).current;
   const fadeAnim = useRef(new Animated.Value(1)).current;
 
   useEffect(() => {
@@ -112,6 +114,7 @@ function ChatBoxArea() {
             ...prevMessages,
             { type: "diagnostico", text: res.data.diagnostico },
           ]);
+          setExplainer(res.data.explicacion);
         }
         flatListRef.current?.scrollToEnd({ animated: true });
       });
@@ -121,6 +124,16 @@ function ChatBoxArea() {
     const isQuestion = item.type === "question";
     const isAnswer = item.type === "answer";
     const isDiagnostico = item.type === "diagnostico";
+
+    let messageType = "";
+
+    if (isQuestion) {
+      messageType = "Pregunta";
+    } else if (isAnswer) {
+      messageType = "Respuesta";
+    } else if (isDiagnostico) {
+      messageType = "Diagnóstico";
+    }
 
     return (
       <View
@@ -133,18 +146,23 @@ function ChatBoxArea() {
       >
         <Text
           style={[
-            styles.messageText,
             isQuestion && styles.questionText,
             isAnswer && styles.answerText,
             isDiagnostico && styles.diagnosticoText,
           ]}
         >
-          {item.type === "question"
-            ? `Pregunta: ${item.text}`
-            : item.type === "answer"
-            ? `Respuesta: ${item.text}`
-            : `Diagnóstico: ${item.text}`}
+          {`${messageType}: ${item.text}`}
         </Text>
+        {isDiagnostico && (
+          <View style={styles.diagnostico}>
+            <Text style={styles.explanationTitle}>Explicación:</Text>
+            {explainer.map((exp, index) => (
+              <Text key={exp} style={styles.explanationText}>
+                - {exp}
+              </Text>
+            ))}
+          </View>
+        )}
       </View>
     );
   };
@@ -153,12 +171,10 @@ function ChatBoxArea() {
     <View style={{ flex: 1, paddingTop: insets.top }}>
       <View style={styles.div1}>
         <View style={styles.headerContainer}>
-          <Text style={styles.headerText}>Habla con Expertus</Text>
-          <Button
-            title="Reiniciar diagnóstico"
-            onPress={handleReset}
-            color="#6c757d" // Color plomo mejorado
-          />
+          <Text style={styles.headerText}>Habla con Expertus !!! </Text>
+          <TouchableOpacity onPress={handleReset}>
+            <Text style={styles.rebootLink}>Reiniciar diagnóstico</Text>
+          </TouchableOpacity>
         </View>
         <FlatList
           ref={flatListRef}
@@ -195,14 +211,14 @@ function ChatBoxArea() {
             onPress={() => handleSend("si")}
             disabled={block}
           >
-            <Text style={styles.buttonText}>SI</Text>
+            <Text style={styles.buttonTextSi}>SI</Text>
           </TouchableOpacity>
           <TouchableOpacity
             style={[styles.button, styles.buttonNo]}
             onPress={() => handleSend("no")}
             disabled={block}
           >
-            <Text style={styles.buttonText}>NO</Text>
+            <Text style={styles.buttonTextNo}>NO</Text>
           </TouchableOpacity>
         </View>
       </KeyboardAvoidingView>
@@ -210,7 +226,7 @@ function ChatBoxArea() {
   );
 }
 
-export default function Chatbox() {
+export default function ChatboxScreen() {
   return (
     <SafeAreaProvider>
       <GestureHandlerRootView style={{ flex: 1 }}>
@@ -223,7 +239,8 @@ export default function Chatbox() {
 const styles = StyleSheet.create({
   div1: {
     padding: 20,
-    backgroundColor: "#d0d0d0",
+    backgroundColor: "#ffffff",
+    paddingBottom: 30,
     flex: 1,
   },
   headerContainer: {
@@ -233,7 +250,25 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   headerText: {
-    fontSize: 28,
+    width: 200,
+    fontSize: 24,
+    fontWeight: "800",
+    color: "#333",
+  },
+  headerReboot: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 60,
+    borderRadius: 8,
+  },
+  rebootLink: {
+    width: 100,
+    color: "#8948c7",
+    fontSize: 16,
+    fontWeight: "bold",
+    textDecorationLine: "underline",
+    textAlign: "center",
   },
   resetMessage: {
     position: "absolute",
@@ -254,43 +289,44 @@ const styles = StyleSheet.create({
   inputContainer: {
     flexDirection: "column",
     padding: 8,
-    backgroundColor: "#BBB",
+    backgroundColor: "#ffffff",
+  },
+  buttonNo: {
+    color: "#000",
+    backgroundColor: "#ffffff",
+    borderColor: "#8948c7",
+    borderWidth: 1,
+    fontWeight: "bold",
+  },
+  buttonSi: {
+    backgroundColor: "#8948c7",
+    fontWeight: "bold",
   },
   buttonContainer: {
     flexDirection: "row",
-    justifyContent: "center",
-    alignItems: "center",
-    marginLeft: "8%",
+    justifyContent: "space-around",
+    width: "100%",
+    height: 45,
+    backgroundColor: "#ffffff",
   },
+
   button: {
     flex: 1,
-    marginHorizontal: 2.5,
-    paddingVertical: 12,
-    paddingHorizontal: 80,
-    borderRadius: 8,
     alignItems: "center",
+    justifyContent: "center",
+    paddingHorizontal: 60,
+    borderRadius: 8,
   },
-  buttonNo: {
-    backgroundColor: "#f05330",
+
+  buttonTextSi: {
+    color: "white",
     fontWeight: "bold",
-    width: "50%",
-  },
-  buttonSi: {
-    backgroundColor: "#67b2f0",
-    fontWeight: "bold",
-    width: "50%",
-  },
-  buttonText: {
-    color: "#fff",
     fontSize: 16,
-    fontWeight: "bold",
   },
-  textInput: {
-    borderColor: "#ccc",
-    borderWidth: 1,
-    borderRadius: 4,
-    padding: 8,
-    marginTop: 8,
+  buttonTextNo: {
+    color: "#8948c7",
+    fontWeight: "bold",
+    fontSize: 16,
   },
   message: {
     padding: 10,
@@ -299,28 +335,49 @@ const styles = StyleSheet.create({
     maxWidth: "80%",
   },
   questionMessage: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#8948c7",
     alignSelf: "flex-start",
   },
   answerMessage: {
-    backgroundColor: "#007BFF",
+    backgroundColor: "#ededed",
     alignSelf: "flex-end",
   },
   diagnosticoMessage: {
-    backgroundColor: "#28A745",
+    backgroundColor: "#e9c3fa",
     alignSelf: "center",
   },
-  messageText: {
-    fontSize: 16,
-    color: "white",
-  },
   questionText: {
+    fontSize: 16,
+    color: "#ffffff",
     textAlign: "left",
   },
   answerText: {
+    fontSize: 16,
+    color: "#000",
     textAlign: "right",
   },
   diagnosticoText: {
     textAlign: "center",
+    fontWeight: "bold",
+    color: "#000",
   },
+  diagnostico: {
+    marginTop: 10,
+    padding: 10,
+    color: "#ffffff",
+    borderRadius: 8,
+  },
+  explanationTitle: {
+    fontSize: 16,
+    fontWeight: "bold",
+    marginBottom: 5,
+    color: "#000",
+  },
+  explanationText: {
+    justifyContent: "center",
+    fontSize: 14,
+    color: "#000",
+  },
+
+
 });

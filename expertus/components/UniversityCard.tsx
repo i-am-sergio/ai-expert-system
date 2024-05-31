@@ -48,6 +48,7 @@ const styles = StyleSheet.create({
     maxWidth: '95%',
   },
   universityName: {
+    color: '#6d3a9e',
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 12,
@@ -59,6 +60,7 @@ const styles = StyleSheet.create({
   careerTitle: {
     fontSize: 16,
     fontWeight: 'bold',
+    color: '#6d3a9e',
   },
   careerDescription: {
     fontSize: 14,

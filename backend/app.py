@@ -107,7 +107,12 @@ def create_app():
     @app.route('/conocimiento', methods=['GET'])
     def obtener_conocimiento():
         return jsonify(conocimiento)
-
+    
+    @app.route('/course', methods=['GET'])
+    def nombres_tablas():
+        nombres = db.obtener_nombres_tablas()
+        return jsonify(nombres)
+    
     @app.route('/')
     def index():
         return "Bienvenido al Sistema Experto. Usa /pregunta para empezar."
