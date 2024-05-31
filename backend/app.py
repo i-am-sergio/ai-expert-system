@@ -3,6 +3,7 @@ from flask_cors import CORS
 import db.extract_db as db
 import os
 from dotenv import load_dotenv
+import db.user_db as user_db
 
 load_dotenv()
 puerto = os.getenv("PORT", 5000)
@@ -112,6 +113,28 @@ def create_app():
     def nombres_tablas():
         nombres = db.obtener_nombres_tablas()
         return jsonify(nombres)
+    
+    @app.route('/register', methods=['POST'])
+    def register():
+        data = request.json
+        if 'username' not in data or 'password' not in data:
+            return jsonify({'error': 'Usuario y/o contraseña no proporcionados'}), 400
+        username = data['username']
+        password = data['password']
+        if user_db.register(username, password):
+            return jsonify({'mensaje': 'Usuario registrado exitosamente'})
+        return jsonify({'error': 'Usuario ya existe'}), 400
+    
+    @app.route('/login', methods=['POST'])
+    def login():
+        data = request.json
+        if 'username' not in data or 'password' not in data:
+            return jsonify({'error': 'Usuario y/o contraseña no proporcionados'}), 400
+        username = data['username']
+        password = data['password']
+        if user_db.login(username, password):
+            return jsonify({'mensaje': 'Inicio de sesión exitoso'})
+        return jsonify({'error': 'Usuario y/o contraseña incorrectos'}), 400
     
     @app.route('/')
     def index():
