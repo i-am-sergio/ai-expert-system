@@ -6,33 +6,34 @@
 ![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
+![Docker](https://img.shields.io/badge/docker-0DB7ED.svg?style=for-the-badge&logo=docker&logoColor=white)
 
 ## Introduccion
+
 En un mundo en constante evolución, donde las opciones profesionales son vastas y variadas, la orientación vocacional se convierte en un componente crucial para los que buscan definir su trayectoria profesional. En este contexto, las aplicaciones móviles han emergido como herramientas poderosas para brindar asesoramiento personalizado y accesible. Este informe se centra en la aplicación móvil "Expertus: AI Expert System for Vocational Guidance", una innovadora solución que aprovecha la inteligencia artificial, bajo el enfoque de sistema experto, para ofrecer recomendaciones y análisis detallados sobre carreras y profesiones. A a lo largo del presente informe, exploraremos sus características, funcionalidades, proceso de desarrollo y configuraciones.
 
 ## Descripcion
 
-Experturs es una aplicacion movil diseñada para ayudar a los usuarios a explorar y entender las diversas opciones profesionales disponibles. 
+Expertus es una aplicacion movil diseñada para ayudar a los usuarios a explorar y entender las diversas opciones profesionales disponibles.
 
 ### 1. Requisitos No Funcionales
-| Requisito No Funcional         | Descripción                                                                                                                                                                           |
-|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+
+| Requisito No Funcional | Descripción                                                                                                                                                                                                                                       |
+| ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | **Rendimiento**        | El sistema debe ser capaz de manejar múltiples usuarios simultáneamente sin degradar el rendimiento. Las respuestas a las acciones del usuario (como enviar el cuestionario) deben ser rápidas, con tiempos de respuesta inferiores a 2 segundos. |
-| **Escalabilidad**      | El sistema debe ser escalable para soportar un número creciente de usuarios y datos sin pérdida de rendimiento. Debe ser fácil de actualizar y mantener. |
-| **Usabilidad**         | La interfaz de usuario debe ser intuitiva y accesible para personas con diferentes niveles de habilidad tecnológica. Debe seguir principios de diseño accesible para usuarios con discapacidades. |
-| **Mantenibilidad**     | El código debe estar bien documentado y seguir buenas prácticas de programación para facilitar su mantenimiento y evolución.Debe haber pruebas automatizadas para asegurar la calidad y funcionamiento correcto del sistema.    |
+| **Escalabilidad**      | El sistema debe ser escalable para soportar un número creciente de usuarios y datos sin pérdida de rendimiento. Debe ser fácil de actualizar y mantener.                                                                                          |
+| **Usabilidad**         | La interfaz de usuario debe ser intuitiva y accesible para personas con diferentes niveles de habilidad tecnológica. Debe seguir principios de diseño accesible para usuarios con discapacidades.                                                 |
+| **Mantenibilidad**     | El código debe estar bien documentado y seguir buenas prácticas de programación para facilitar su mantenimiento y evolución.Debe haber pruebas automatizadas para asegurar la calidad y funcionamiento correcto del sistema.                      |
 
+### 2. Requisitos Funcionales
 
-### 2. Requisitos Funcionales 
-
-| Requisito Funcional                           | Descripción                                                                                                                                                       |
-|-----------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **Cuestionario de Orientación Vocacional** | El sistema debe presentar un cuestionario con preguntas sobre intereses, habilidades y preferencias de los usuarios. Las preguntas deben ser faciles de entender y ser respondidas con un SI o con un NO. |
-| **Procesamiento de Respuestas**        | El sistema debe analizar las respuestas del cuestionario utilizando un algoritmo experto para generar recomendaciones.Debe haber lógica para manejar respuestas incompletas y asegurar que se recopile suficiente información para generar una recomendación precisa. |
-| **Generación de Resultados**           | El sistema debe generar un informe con las recomendaciones de carreras y campos profesionales basados en las respuestas del usuario. El informe debe ser claro y comprensible, proporcionando detalles sobre por qué se recomendaron ciertas carreras. |
-| **Historial de Resultados**            | Los usuarios deben poder acceder a un historial de sus cuestionarios y resultados anteriores. El sistema debe permitir la comparación de resultados de diferentes cuestionarios realizados por el mismo usuario. |
-| **Registro y Autenticación de Usuarios** | El sistema debe permitir a los usuarios registrarse con un correo electrónico y una contraseña. Los usuarios deben poder iniciar sesión con sus credenciales. |
-
+| Requisito Funcional                        | Descripción                                                                                                                                                                                                                                                           |
+| ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Cuestionario de Orientación Vocacional** | El sistema debe presentar un cuestionario con preguntas sobre intereses, habilidades y preferencias de los usuarios. Las preguntas deben ser faciles de entender y ser respondidas con un SI o con un NO.                                                             |
+| **Procesamiento de Respuestas**            | El sistema debe analizar las respuestas del cuestionario utilizando un algoritmo experto para generar recomendaciones.Debe haber lógica para manejar respuestas incompletas y asegurar que se recopile suficiente información para generar una recomendación precisa. |
+| **Generación de Resultados**               | El sistema debe generar un informe con las recomendaciones de carreras y campos profesionales basados en las respuestas del usuario. El informe debe ser claro y comprensible, proporcionando detalles sobre por qué se recomendaron ciertas carreras.                |
+| **Historial de Resultados**                | Los usuarios deben poder acceder a un historial de sus cuestionarios y resultados anteriores. El sistema debe permitir la comparación de resultados de diferentes cuestionarios realizados por el mismo usuario.                                                      |
+| **Registro y Autenticación de Usuarios**   | El sistema debe permitir a los usuarios registrarse con un correo electrónico y una contraseña. Los usuarios deben poder iniciar sesión con sus credenciales.                                                                                                         |
 
 ### 3. Estructura de Proyecto
 
@@ -48,7 +49,7 @@ El sistema consta de dos partes principales:
 │   ├── models.py
 │   ├── controllers.py
 │   └── requirements.txt
-├── frontend
+├── expertus
 │   ├── src
 │   │   ├── App.jsx
 │   │   ├── components
@@ -63,39 +64,174 @@ El sistema consta de dos partes principales:
 
 - **_Frontend_**
 
-    - `React Native` For developing the mobile application.
-    - `Expo` Framework for easily developing React Native applications.
+  - `React Native` Para desarrollar la aplicación móvil.
+  - `Expo` Framework para desarrollar aplicaciones de React Native de manera sencilla.
 
 - **_Backend_**
 
-    - `Python` Main programming language for the backend.
-    - `Flask` Microframework for developing server applications.
-    - `SQLite` Lightweight database for storing user information and results.
+  - `Python` Lenguaje de programación principal para el backend.
+  - `Flask` Microframework para desarrollar aplicaciones de servidor.
+  - `SQLite` Base de datos ligera para almacenar información de usuarios y resultados.
 
 ### 5. Funcionalidades
 
-listar funciones...
-
-<!-- ## Features
-
-- **User-Friendly Interface**: Optimized design for mobile devices.
-- **Recommendation Engine**: Expert algorithm that suggests careers and professional fields based on user responses.
-- **Scalability**: Ability to handle multiple users simultaneously. 
-
--->
-
+- **Interfaz Amigable para el Usuario**: Diseño optimizado para dispositivos móviles que garantiza una experiencia intuitiva.
+- **Cuestionario de Orientación Vocacional**: Presenta preguntas sobre intereses, habilidades y preferencias, fáciles de entender y responder.
+- **Motor de Recomendaciones**: Algoritmo experto que sugiere carreras y campos profesionales basados en las respuestas de los usuarios.
+- **Procesamiento de Respuestas**: Analiza las respuestas del cuestionario y maneja respuestas incompletas para asegurar recomendaciones precisas.
+- **Generación de Resultados**: Genera informes claros y comprensibles con recomendaciones de carreras, proporcionando detalles sobre cada sugerencia.
+- **Historial de Resultados**: Permite a los usuarios acceder y comparar sus cuestionarios y resultados anteriores.
+- **Registro y Autenticación de Usuarios**: Permite a los usuarios registrarse e iniciar sesión con su correo electrónico y contraseña.
+- **Rendimiento Óptimo**: Capacidad para manejar múltiples usuarios simultáneamente con tiempos de respuesta inferiores a 2 segundos.
+- **Escalabilidad**: Soporta un número creciente de usuarios y datos sin pérdida de rendimiento.
+- **Mantenibilidad**: Código bien documentado y pruebas automatizadas para asegurar la calidad y funcionamiento correcto del sistema.
+- **Accesibilidad**: Interfaz accesible para personas con diferentes niveles de habilidad tecnológica y usuarios con discapacidades.
 
 ## Integración de la IA
 
-Describe la Arquitectura de un Sistema Experto
+1. **Adquisición de Conocimiento**
 
-## Metodologia 
+   - **Expertos**: Personas con conocimientos específicos en un área determinada que proporcionan información valiosa al sistema.
+   - **Cognimático**: Herramientas y técnicas utilizadas para capturar y formalizar el conocimiento de los expertos.
+   - **Sensores y Bases de Datos**: Fuentes de información adicional que proporcionan datos en tiempo real o históricos que pueden ser utilizados para enriquecer la base de conocimiento.
+   - **Módulo de Adquisición de Conocimiento**: Se encarga de recopilar, formalizar y almacenar el conocimiento obtenido de los expertos y otras fuentes.
 
-Metodología utilizada en el desarrollo de la aplicación Agil Scrum
+2. **Representación del Conocimiento**
+
+   - **Base de Conocimiento**: Almacena el conocimiento formalizado, que incluye reglas, hechos, heurísticas y otros tipos de información estructurada.
+   - **Base de Hechos**: Contiene datos específicos de casos particulares o instancias de problemas que el sistema necesita resolver. Estos datos son dinámicos y específicos a cada consulta o caso.
+
+3. **Tratamiento del Conocimiento**
+
+   - **Motor de Inferencia**: Es el componente que aplica las reglas y el conocimiento almacenado en la base de conocimiento para analizar los hechos y llegar a conclusiones o recomendaciones.
+   - **Módulo de Explicaciones**: Proporciona justificaciones y explicaciones sobre cómo el sistema ha llegado a ciertas conclusiones. Esto es crucial para la transparencia y la confianza en el sistema.
+   - **Interacción entre Componentes**: El motor de inferencia y el módulo de explicaciones interactúan con la base de conocimiento y la base de hechos para procesar la información y generar resultados explicativos.
+
+4. **Utilización del Conocimiento**
+   - **Interfaz de Usuario**: El punto de contacto entre el usuario y el sistema experto. A través de esta interfaz, el usuario puede introducir datos, hacer consultas y recibir recomendaciones o conclusiones del sistema.
+   - **Usuario**: La persona que utiliza el sistema experto para obtener información, recomendaciones o soluciones a problemas específicos.
+
+![Arquitecture Expert System](docs/arquitectura-sistema-experto.png)
+
+## Metodologia
+
+Scrum es una metodología ágil que facilita el desarrollo incremental de proyectos, promoviendo la adaptabilidad y la colaboración. La metodología Scrum se basa en iteraciones cortas y definidas, llamadas Sprints, que permiten la entrega continua de funcionalidad y la incorporación de feedback constante.
+
+- **Roles en Scrum**:
+
+  - **Product Owner**: Define y prioriza requisitos, gestiona el backlog.
+  - **Scrum Master**: Facilita el proceso, elimina obstáculos, fomenta la colaboración.
+  - **Development Team**: Implementa los requisitos, entrega incrementos funcionales.
+
+- **Artefactos en Scrum**:
+
+  - **Product Backlog**: Lista priorizada de funcionalidades, gestionada por el Product Owner.
+  - **Sprint Backlog**: Elementos del Product Backlog seleccionados para el Sprint.
+  - **Increment**: Producto funcional y potencialmente entregable al final del Sprint.
+
+- **Eventos en Scrum**:
+
+  - **Sprint Planning**: Selección y planificación de elementos para el Sprint.
+  - **Daily Scrum**: Reunión diaria de 15 minutos para revisar el progreso.
+  - **Sprint Review**: Presentación del incremento completado y recopilación de feedback.
+  - **Sprint Retrospective**: Reflexión sobre el proceso y búsqueda de mejoras.
+
+- **Ciclo de Desarrollo con Scrum**:
+
+  - **Inicio del Proyecto**: Definición del Product Backlog, identificación de roles.
+  - **Planificación de Sprints**: Selección de elementos del Product Backlog para el Sprint.
+  - **Desarrollo Incremental**: Trabajo en los elementos seleccionados, reuniones diarias.
+  - **Revisión y Mejora Continua**: Revisión del Sprint, retrospectiva, ajuste del Product Backlog.
+
+- **Aplicación de Scrum en Expertus**:
+  - Gestión eficiente del proyecto.
+  - Entrega de un producto de alta calidad.
+  - Adaptación rápida a cambios en el entorno y los requisitos.
 
 ## Guía de Usuario
 
-Pantallas y que puede hacer el usuario ahi
+### Pantallas y Funcionalidades
+
+#### Pantalla de Inicio de Sesión
+
+- **Funcionalidad**: Permite al usuario ingresar al sistema utilizando su correo electrónico y contraseña.
+- **Acciones**:
+
+  - Ingresar el correo electrónico y la contraseña.
+  - Presionar el botón "Iniciar Sesión".
+  - Opción para recuperar la contraseña en caso de olvido.
+
+![Inicio de Sesión](docs/login.jpg)
+
+#### Pantalla de Registro
+
+- **Funcionalidad**: Permite a nuevos usuarios crear una cuenta en el sistema.
+- **Acciones**:
+  - Ingresar correo electrónico y contraseña.
+  - Confirmar la contraseña.
+  - Presionar el botón "Registrar".
+
+![Registro](docs/register.jpg)
+
+#### Pantalla de Inicio
+
+- **Funcionalidad**: Muestra un mensaje de bienvenida y los nombres de las carreras disponibles en el sistema.
+- **Acciones**:
+  - Ver el mensaje de bienvenida.
+  - Navegar por la lista de carreras disponibles.
+
+![Home](docs/home.jpg)
+
+#### Pantalla de Exploración
+
+- **Funcionalidad**: Muestra las carreras analizadas en universidades del Perú.
+- **Acciones**:
+  - Explorar y navegar por las carreras ofrecidas por distintas universidades del Perú.
+  - Seleccionar una carrera para ver más detalles.
+
+![Explore](docs/explore.jpg)
+
+#### Pantalla de Chatbox
+
+- **Funcionalidad**: Interactuar con el sistema experto para recibir recomendaciones de carreras.
+- **Acciones**:
+  - Responder preguntas utilizando los botones "Sí" o "No".
+  - Presionar el botón "Reiniciar Diagnóstico" para comenzar el cuestionario desde el inicio.
+
+![Chatbox](docs/chatbox.jpg)
+
+#### Pantalla de Diagnóstico
+
+- **Funcionalidad**: Muestra el diagnóstico generado a partir de las respuestas del usuario en la pantalla de Chatbox.
+- **Acciones**:
+  - Ver la carrera recomendada.
+  - Leer los motivos y razones detrás de la recomendación.
+
+![diagnostico](docs/diagnostico.jpg)
+
+### Flujo de Uso del Usuario
+
+1. **Registro e Inicio de Sesión**:
+
+   - El usuario se registra o inicia sesión en el sistema a través de las pantallas de "Register" o "Login".
+
+2. **Exploración Inicial**:
+
+   - Al ingresar al sistema, el usuario es llevado a la pantalla "Home" donde puede ver las carreras disponibles.
+   - Opcionalmente, el usuario puede ir a la pantalla "Explore" para ver las carreras ofrecidas por universidades del Perú.
+
+3. **Interacción con el Sistema Experto**:
+
+   - El usuario navega a la pantalla "Chatbox" para comenzar el cuestionario de orientación vocacional.
+   - Responde las preguntas utilizando los botones "Sí" o "No".
+
+4. **Recepción de Diagnóstico**:
+
+   - Después de completar el cuestionario, el usuario recibe un diagnóstico en la pantalla de "Ejemplo de Diagnóstico".
+   - El diagnóstico incluye la carrera recomendada y las razones detrás de dicha recomendación.
+
+5. **Reinicio del Proceso**:
+   - Si el usuario desea realizar el cuestionario nuevamente, puede utilizar el botón "Reiniciar Diagnóstico" en la pantalla de "Chatbox".
 
 ## Instalacion y Configuracion
 
@@ -103,52 +239,101 @@ Pantallas y que puede hacer el usuario ahi
 
 2. **Database:**
 
-    - Instalar SQLite;
-    ```bash
-    sudo apt install sqlite3
-    ```
+   - Instalar SQLite;
+
+   ```bash
+   sudo apt install sqlite3
+   ```
 
 3. **Backend:**
 
-    - From the root of the project:
-    ```bash
-    cd expert-system-vocational-guidance/backend
-    ```
-    
-    - Create a virtual environment:
-    ```bash
-    python -m venv venv
-    source venv/bin/activate
-    ```
+   - From the root of the project:
 
-    - Install the dependencies:
-    ```bash
-    pip install -r requirements.txt
-    ```
+   ```bash
+   cd expert-system-vocational-guidance/backend
+   ```
 
-    - Run the backend application:
-    ```bash
-    flask --app app run
-    ```
+   - Create a virtual environment:
+
+   ```bash
+   python -m venv venv
+   source venv/bin/activate
+   ```
+
+   - Install the dependencies:
+
+   ```bash
+   pip install -r requirements.txt
+   ```
+
+   - Run the backend application:
+
+   ```bash
+   flask --app app run
+   ```
 
 4. **Frontend:**
 
-    - From the root of the project:
-    ```bash
-    cd expert-system-vocational-guidance/frontend
-    ```
+   - From the root of the project:
 
-    - Install the dependencies:
-    ```bash
-    npm install
-    ```
-    
-    - Run the frontend application:
-    ```bash
-    npm run dev
-    ```
+   ```bash
+   cd expert-system-vocational-guidance/expertus
+   ```
+
+   - Install the dependencies:
+
+   ```bash
+   npm install
+   ```
+
+   - Run the expertus application:
+
+   ```bash
+   npx expo start
+   ```
+
+   ```bash
+   npx expo start
+   ```
+
 ## Desafíos y Limitaciones
-A partir del sistema actual menciona desafios y limitaciones
+
+1. **Gestión de Datos**:
+
+   - **Desafío**: Manejar una cantidad creciente de datos de usuarios y sus respuestas al cuestionario puede ser complejo.
+   - **Limitación**: El uso de SQLite como base de datos puede no ser suficiente a largo plazo para manejar grandes volúmenes de datos y concurrencia.
+
+2. **Precisión del Sistema Experto**:
+
+   - **Desafío**: Asegurar que el algoritmo de recomendación del sistema experto sea preciso y relevante para cada usuario.
+   - **Limitación**: La precisión del sistema depende de la calidad y amplitud del conocimiento almacenado, lo que puede requerir actualizaciones y mejoras continuas.
+
+3. **Escalabilidad**:
+
+   - **Desafío**: Adaptar el sistema para soportar un número creciente de usuarios sin comprometer el rendimiento.
+   - **Limitación**: La arquitectura actual puede necesitar reestructuración para soportar una mayor escalabilidad, especialmente en el backend.
+
+4. **Mantenimiento y Actualización**:
+   - **Desafío**: Asegurar que el código esté bien documentado y sea fácil de mantener y actualizar.
+   - **Limitación**: La necesidad de pruebas automatizadas y una buena documentación es crucial para la evolución continua del sistema.
 
 ## Conclusiones
-Lista 5 conclusiones
+
+1. **Implementación Exitosa de Metodología Ágil**:
+
+   - La adopción de la metodología Scrum ha permitido un desarrollo eficiente y colaborativo del sistema, facilitando la entrega continua de valor y la mejora constante.
+
+2. **Sistemas Experto Eficaz**:
+
+   - El sistema experto implementado en la aplicación proporciona recomendaciones personalizadas basadas en las respuestas de los usuarios, añadiendo valor significativo a la experiencia del usuario.
+
+3. **Interfaz Intuitiva y Accesible**:
+
+   - La aplicación presenta una interfaz amigable e intuitiva que facilita la navegación y el uso del sistema, independientemente del nivel de habilidad tecnológica del usuario.
+
+4. **Necesidad de Mejoras en la Escalabilidad**:
+
+   - Aunque el sistema actual cumple con los requisitos, es crucial planificar mejoras en la escalabilidad y el manejo de datos para soportar el crecimiento futuro y garantizar un rendimiento óptimo.
+
+5. **Importancia del Mantenimiento Continuo**:
+   - Para asegurar la longevidad y efectividad del sistema, es esencial mantener una buena documentación, implementar pruebas automatizadas y realizar actualizaciones periódicas basadas en feedback y nuevos desarrollos en el campo de la orientación vocacional.
