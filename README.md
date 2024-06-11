@@ -2,21 +2,22 @@
 
 ![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
 ![Flask](https://img.shields.io/badge/flask-%23000.svg?style=for-the-badge&logo=flask&logoColor=white)
-![React Native](https://img.shields.io/badge/React_Native-fdfdfd?style=for-the-badge&logo=react&logoColor=%2361DAFB)
-![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
+![Android](https://img.shields.io/badge/Android-3DDC84?style=for-the-badge&logo=android&logoColor=white)
+![React Native](https://img.shields.io/badge/react_native-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB)
 ![TypeScript](https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white)
+![Expo](https://img.shields.io/badge/expo-1C1E24?style=for-the-badge&logo=expo&logoColor=#D04A37)
 ![SQLite](https://img.shields.io/badge/sqlite-%2307405e.svg?style=for-the-badge&logo=sqlite&logoColor=white)
 ![Docker](https://img.shields.io/badge/docker-0DB7ED.svg?style=for-the-badge&logo=docker&logoColor=white)
 
-## Introduccion
+## **Introduccion**
 
 En un mundo en constante evolución, donde las opciones profesionales son vastas y variadas, la orientación vocacional se convierte en un componente crucial para los que buscan definir su trayectoria profesional. En este contexto, las aplicaciones móviles han emergido como herramientas poderosas para brindar asesoramiento personalizado y accesible. Este informe se centra en la aplicación móvil "Expertus: AI Expert System for Vocational Guidance", una innovadora solución que aprovecha la inteligencia artificial, bajo el enfoque de sistema experto, para ofrecer recomendaciones y análisis detallados sobre carreras y profesiones. A a lo largo del presente informe, exploraremos sus características, funcionalidades, proceso de desarrollo y configuraciones.
 
-## Descripcion
+## **Descripcion**
 
 Expertus es una aplicacion movil diseñada para ayudar a los usuarios a explorar y entender las diversas opciones profesionales disponibles.
 
-### 1. Requisitos No Funcionales
+### **1. Requisitos No Funcionales**
 
 | Requisito No Funcional | Descripción                                                                                                                                                                                                                                       |
 | ---------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -25,7 +26,7 @@ Expertus es una aplicacion movil diseñada para ayudar a los usuarios a explorar
 | **Usabilidad**         | La interfaz de usuario debe ser intuitiva y accesible para personas con diferentes niveles de habilidad tecnológica. Debe seguir principios de diseño accesible para usuarios con discapacidades.                                                 |
 | **Mantenibilidad**     | El código debe estar bien documentado y seguir buenas prácticas de programación para facilitar su mantenimiento y evolución.Debe haber pruebas automatizadas para asegurar la calidad y funcionamiento correcto del sistema.                      |
 
-### 2. Requisitos Funcionales
+### **2. Requisitos Funcionales**
 
 | Requisito Funcional                        | Descripción                                                                                                                                                                                                                                                           |
 | ------------------------------------------ | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -35,7 +36,7 @@ Expertus es una aplicacion movil diseñada para ayudar a los usuarios a explorar
 | **Historial de Resultados**                | Los usuarios deben poder acceder a un historial de sus cuestionarios y resultados anteriores. El sistema debe permitir la comparación de resultados de diferentes cuestionarios realizados por el mismo usuario.                                                      |
 | **Registro y Autenticación de Usuarios**   | El sistema debe permitir a los usuarios registrarse con un correo electrónico y una contraseña. Los usuarios deben poder iniciar sesión con sus credenciales.                                                                                                         |
 
-### 3. Estructura de Proyecto
+### **3. Estructura de Proyecto**
 
 El sistema consta de dos partes principales:
 
@@ -60,7 +61,7 @@ El sistema consta de dos partes principales:
 └── README.md
 ```
 
-### 4. Tecnologias Usadas
+### **4. Tecnologias Usadas**
 
 - **_Frontend_**
 
@@ -73,7 +74,7 @@ El sistema consta de dos partes principales:
   - `Flask` Microframework para desarrollar aplicaciones de servidor.
   - `SQLite` Base de datos ligera para almacenar información de usuarios y resultados.
 
-### 5. Funcionalidades
+### **5. Funcionalidades**
 
 - **Interfaz Amigable para el Usuario**: Diseño optimizado para dispositivos móviles que garantiza una experiencia intuitiva.
 - **Cuestionario de Orientación Vocacional**: Presenta preguntas sobre intereses, habilidades y preferencias, fáciles de entender y responder.
@@ -87,12 +88,11 @@ El sistema consta de dos partes principales:
 - **Mantenibilidad**: Código bien documentado y pruebas automatizadas para asegurar la calidad y funcionamiento correcto del sistema.
 - **Accesibilidad**: Interfaz accesible para personas con diferentes niveles de habilidad tecnológica y usuarios con discapacidades.
 
-## Integración de la IA
+## **Integración de la IA**
 
 1. **Adquisición de Conocimiento**
 
    - **Expertos**: Personas con conocimientos específicos en un área determinada que proporcionan información valiosa al sistema.
-   - **Cognimático**: Herramientas y técnicas utilizadas para capturar y formalizar el conocimiento de los expertos.
    - **Sensores y Bases de Datos**: Fuentes de información adicional que proporcionan datos en tiempo real o históricos que pueden ser utilizados para enriquecer la base de conocimiento.
    - **Módulo de Adquisición de Conocimiento**: Se encarga de recopilar, formalizar y almacenar el conocimiento obtenido de los expertos y otras fuentes.
 
@@ -111,7 +111,9 @@ El sistema consta de dos partes principales:
    - **Interfaz de Usuario**: El punto de contacto entre el usuario y el sistema experto. A través de esta interfaz, el usuario puede introducir datos, hacer consultas y recibir recomendaciones o conclusiones del sistema.
    - **Usuario**: La persona que utiliza el sistema experto para obtener información, recomendaciones o soluciones a problemas específicos.
 
-![Arquitecture Expert System](docs/arquitectura-sistema-experto.png)
+<p align="center">
+  <img src="docs/arquitectura-sistema-experto.png" alt="Expert System" width="500px" />
+</p>
 
 ## Metodologia
 
@@ -148,9 +150,9 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
   - Entrega de un producto de alta calidad.
   - Adaptación rápida a cambios en el entorno y los requisitos.
 
-## Guía de Usuario
+## **Guía de Usuario**
 
-### Pantallas y Funcionalidades
+### **Pantallas y Funcionalidades**
 
 #### Pantalla de Inicio de Sesión
 
@@ -161,7 +163,9 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
   - Presionar el botón "Iniciar Sesión".
   - Opción para recuperar la contraseña en caso de olvido.
 
-![Inicio de Sesión](docs/login.jpg)
+<p align="center">
+  <img src="docs/login.jpg" alt="Login" width="200px" />
+</p>
 
 #### Pantalla de Registro
 
@@ -171,7 +175,9 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
   - Confirmar la contraseña.
   - Presionar el botón "Registrar".
 
-![Registro](docs/register.jpg)
+<p align="center">
+  <img src="docs/register.jpg" alt="Register" width="200px" />
+</p>
 
 #### Pantalla de Inicio
 
@@ -180,7 +186,9 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
   - Ver el mensaje de bienvenida.
   - Navegar por la lista de carreras disponibles.
 
-![Home](docs/home.jpg)
+<p align="center">
+  <img src="docs/home.jpg" alt="Home" width="200px" />
+</p>
 
 #### Pantalla de Exploración
 
@@ -189,7 +197,9 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
   - Explorar y navegar por las carreras ofrecidas por distintas universidades del Perú.
   - Seleccionar una carrera para ver más detalles.
 
-![Explore](docs/explore.jpg)
+<p align="center">
+  <img src="docs/explore.jpg" alt="Explore" width="200px" />
+</p>
 
 #### Pantalla de Chatbox
 
@@ -198,7 +208,9 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
   - Responder preguntas utilizando los botones "Sí" o "No".
   - Presionar el botón "Reiniciar Diagnóstico" para comenzar el cuestionario desde el inicio.
 
-![Chatbox](docs/chatbox.jpg)
+<p align="center">
+  <img src="docs/chatbox.jpg" alt="Chatbox" width="200px" />
+</p>
 
 #### Pantalla de Diagnóstico
 
@@ -207,9 +219,11 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
   - Ver la carrera recomendada.
   - Leer los motivos y razones detrás de la recomendación.
 
-![diagnostico](docs/diagnostico.jpg)
+<p align="center">
+  <img src="docs/diagnostico.jpg" alt="Diagnostico" width="200px" />
+</p>
 
-### Flujo de Uso del Usuario
+### **Flujo de Uso del Usuario**
 
 1. **Registro e Inicio de Sesión**:
 
@@ -233,7 +247,7 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
 5. **Reinicio del Proceso**:
    - Si el usuario desea realizar el cuestionario nuevamente, puede utilizar el botón "Reiniciar Diagnóstico" en la pantalla de "Chatbox".
 
-## Instalacion y Configuracion
+## **Instalacion y Configuracion**
 
 1. **Clone the repository**
 
@@ -296,7 +310,7 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
    npx expo start
    ```
 
-## Desafíos y Limitaciones
+## **Desafíos y Limitaciones**
 
 1. **Gestión de Datos**:
 
@@ -317,7 +331,7 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
    - **Desafío**: Asegurar que el código esté bien documentado y sea fácil de mantener y actualizar.
    - **Limitación**: La necesidad de pruebas automatizadas y una buena documentación es crucial para la evolución continua del sistema.
 
-## Conclusiones
+## **Conclusiones**
 
 1. **Implementación Exitosa de Metodología Ágil**:
 
