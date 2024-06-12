@@ -104,8 +104,65 @@ El sistema consta de dos partes principales:
 3. **Tratamiento del Conocimiento**
 
    - **Motor de Inferencia**: Es el componente que aplica las reglas y el conocimiento almacenado en la base de conocimiento para analizar los hechos y llegar a conclusiones o recomendaciones.
+```python 
+def haz_diagnostico():
+    global explicacion_diagnostico
+    explicacion_diagnostico = []
+    for diagnosis, sintomas in conocimiento.items():
+        if prueba_presencia_de(sintomas):
+            explicacion_diagnostico = [sintoma[1] for sintoma in sintomas if prueba_verdad_de(sintoma[1])]
+            return diagnosis
+    return None
+```
+> haz_diagnostico() recorre las posibles enfermedades (diagnosis) y sus síntomas (sintomas) almacenados en conocimiento. Utiliza la función prueba_presencia_de para verificar si todos los síntomas de una enfermedad están presentes en la lista de síntomas conocidos (conocido). Si encuentra una coincidencia, genera una lista de síntomas verificados (explicacion_diagnostico) y retorna la enfermedad diagnosticada.
+
    - **Módulo de Explicaciones**: Proporciona justificaciones y explicaciones sobre cómo el sistema ha llegado a ciertas conclusiones. Esto es crucial para la transparencia y la confianza en el sistema.
+
+```python
+def obtener_pregunta():
+    global current_symptom, diagnostico_actual
+    if diagnostico_actual:
+        return jsonify({'diagnostico': diagnostico_actual, 'explicacion': explicacion_diagnostico})
+    if current_symptom is None:
+        current_symptom = siguiente_sintoma()
+    if current_symptom is not None:
+        return jsonify({'pregunta': f'Es verdad que {current_symptom}?'})
+    else:
+        diagnostico_actual = haz_diagnostico()
+        if diagnostico_actual:
+            return jsonify({'diagnostico': diagnostico_actual, 'explicacion': explicacion_diagnostico})
+        return jsonify({'diagnostico': 'No hay suficiente conocimiento para elaborar un diagnostico.'})
+```
+> En obtener_pregunta(), cuando se ha realizado un diagnóstico (diagnostico_actual no es None), se retorna una respuesta JSON que incluye tanto el diagnóstico como la explicación (explicacion_diagnostico). Esta explicación contiene los síntomas que fueron considerados verdaderos y que llevaron al diagnóstico final, proporcionando así transparencia sobre el proceso de inferencia del sistema.
+
    - **Interacción entre Componentes**: El motor de inferencia y el módulo de explicaciones interactúan con la base de conocimiento y la base de hechos para procesar la información y generar resultados explicativos.
+```python
+def procesar_respuesta(data):
+    global current_symptom, diagnostico_actual
+    if 'respuesta' not in data:
+        return jsonify({'error': 'Respuesta no proporcionada'}), 400
+    respuesta = data['respuesta'].strip().lower()
+    if respuesta not in ['si', 'no']:
+        return jsonify({'error': 'Respuesta inválida'}), 400
+
+    if respuesta == 'si':
+        conocido.append(current_symptom)
+    elif respuesta == 'no':
+        conocido.append('no ' + current_symptom)
+
+    diagnostico_actual = haz_diagnostico()
+    if diagnostico_actual:
+        return jsonify({'diagnostico': diagnostico_actual, 'explicacion': explicacion_diagnostico})
+
+    current_symptom = siguiente_sintoma()
+    if current_symptom is None:
+        diagnostico_actual = haz_diagnostico()
+        if diagnostico_actual:
+            return jsonify({'diagnostico': diagnostico_actual, 'explicacion': explicacion_diagnostico})
+        return jsonify({'diagnostico': 'No hay suficiente conocimiento para elaborar un diagnostico.'})
+    return jsonify({'pregunta': f'Es verdad que {current_symptom}?'})
+```
+> En procesar_respuesta(), la respuesta del usuario a la pregunta actual se procesa y se actualiza la lista de síntomas conocidos (conocido). Luego, se llama a la función haz_diagnostico para intentar realizar un diagnóstico basado en la información actual. Si se realiza un diagnóstico, se retorna un JSON con el diagnóstico y la explicación. Si no se realiza un diagnóstico, se determina el siguiente síntoma a preguntar y se formula la siguiente pregunta al usuario. Así, la función procesar_respuesta muestra cómo el motor de inferencia, el módulo de explicaciones y la base de hechos interactúan dinámicamente para llevar a cabo el proceso de diagnóstico y explicación.
 
 4. **Utilización del Conocimiento**
    - **Interfaz de Usuario**: El punto de contacto entre el usuario y el sistema experto. A través de esta interfaz, el usuario puede introducir datos, hacer consultas y recibir recomendaciones o conclusiones del sistema.
