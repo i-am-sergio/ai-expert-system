@@ -99,7 +99,53 @@ El sistema consta de dos partes principales:
 2. **Representación del Conocimiento**
 
    - **Base de Conocimiento**: Almacena el conocimiento formalizado, que incluye reglas, hechos, heurísticas y otros tipos de información estructurada.
+```python
+# Importar la función extraer_datos del archivo extract_db.py
+from extract_db import extraer_datos
+
+#Función importada de extract_db.py
+def extraer_datos():
+    conn = sqlite3.connect('carreras.db')
+    cursor = conn.cursor()
+    cursor.execute("SELECT name FROM sqlite_master WHERE type='table';")
+    tablas = cursor.fetchall()
+    carreras_preguntas = {}
+    for tabla in tablas:
+        nombre_tabla = tabla[0].replace("_", " ")
+        cursor.execute(f"SELECT categoria, pregunta FROM {tabla[0]}")
+        filas = cursor.fetchall()
+        carreras_preguntas[nombre_tabla] = [(fila[0], fila[1]) for fila in filas]
+    conn.close()
+    return carreras_preguntas
+
+# En app.py: obtenemos las preguntas asociadas a cada carrera y categoría
+conocimiento = extraer_datos()
+
+```
+> Importamos la función extraer_datos del archivo extract_db.py, que nos permite acceder a la base de datos carreras.db y extraer las preguntas asociadas a cada carrera y categoría. Luego, almacenamos esta información en el diccionario conocimiento, que servirá como nuestra Base de Conocimiento en el sistema experto.
+
    - **Base de Hechos**: Contiene datos específicos de casos particulares o instancias de problemas que el sistema necesita resolver. Estos datos son dinámicos y específicos a cada consulta o caso.
+
+```python
+# Base de Hechos en app.py inicializa vacia
+conocido = []
+
+# Parte de código que sería parte de la actualización dinámica:
+def procesar_respuesta(data):
+    global current_symptom, diagnostico_actual
+    if 'respuesta' not in data:
+        return jsonify({'error': 'Respuesta no proporcionada'}), 400
+    respuesta = data['respuesta'].strip().lower()
+    if respuesta not in ['si', 'no']:
+        return jsonify({'error': 'Respuesta inválida'}), 400
+
+    if respuesta == 'si':
+        conocido.append(current_symptom)
+    elif respuesta == 'no':
+        conocido.append('no ' + current_symptom)
+
+```
+> En app.py, creamos una lista llamada conocido, que se utilizará para almacenar los datos específicos de casos particulares o instancias de problemas que el sistema necesita resolver. Esta lista se inicializa vacía y se actualizará dinámicamente a medida que el usuario proporciona respuestas a las preguntas del sistema experto. Cada elemento en esta lista representará un hecho o conocimiento específico que el sistema utilizará para analizar y llegar a conclusiones o recomendaciones.
 
 3. **Tratamiento del Conocimiento**
 
