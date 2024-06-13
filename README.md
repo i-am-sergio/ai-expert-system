@@ -24,7 +24,7 @@ Expertus es una aplicacion movil diseñada para ayudar a los usuarios a explorar
 | **Rendimiento**        | El sistema debe ser capaz de manejar múltiples usuarios simultáneamente sin degradar el rendimiento. Las respuestas a las acciones del usuario (como enviar el cuestionario) deben ser rápidas, con tiempos de respuesta inferiores a 2 segundos. |
 | **Escalabilidad**      | El sistema debe ser escalable para soportar un número creciente de usuarios y datos sin pérdida de rendimiento. Debe ser fácil de actualizar y mantener.                                                                                          |
 | **Usabilidad**         | La interfaz de usuario debe ser intuitiva y accesible para personas con diferentes niveles de habilidad tecnológica. Debe seguir principios de diseño accesible para usuarios con discapacidades.                                                 |
-| **Mantenibilidad**     | El código debe estar bien documentado y seguir buenas prácticas de programación para facilitar su mantenimiento y evolución. Debe haber pruebas automatizadas para asegurar la calidad y funcionamiento correcto del sistema.                      |
+| **Mantenibilidad**     | El código debe estar bien documentado y seguir buenas prácticas de programación para facilitar su mantenimiento y evolución. Debe haber pruebas automatizadas para asegurar la calidad y funcionamiento correcto del sistema.                     |
 
 ### **2. Requisitos Funcionales**
 
@@ -40,24 +40,69 @@ Expertus es una aplicacion movil diseñada para ayudar a los usuarios a explorar
 
 El sistema consta de dos partes principales:
 
-1. **Frontend**: Una aplicación móvil intuitiva y amigable que permite a los usuarios interactuar con el sistema.
+1. **Expertus**: Una aplicación móvil intuitiva y amigable que permite a los usuarios interactuar con el sistema.
 2. **Backend**: Un servidor en Python que maneja la lógica del sistema experto y procesa las respuestas de los usuarios.
 
 ```plaintext
 .
 ├── backend
-│   ├── app.py
-│   ├── models.py
-│   ├── controllers.py
-│   └── requirements.txt
+│   ├── app.py
+│   ├── carreras.db
+│   ├── conocimiento.py
+│   ├── db
+│   │   ├── create_tables.py
+│   │   └── extract_db.py
+│   ├── Dockerfile
+│   ├── requirements.txt
+│   └── test
+│       ├── expert.py
+│       └── lecturaCarrerasDB.py
+├── COMMITS.md
+├── docs
+│   ├── arquitectura-sistema-experto.png
+│   ├── chatbox.jpg
+│   ├── diagnostico.jpg
+│   ├── explore.jpg
+│   ├── home.jpg
+│   ├── login.jpg
+│   └── register.jpg
 ├── expertus
-│   ├── src
-│   │   ├── App.jsx
-│   │   ├── components
-│   │   │   ├── Home.jsx
-│   │   │   ├── Quiz.jsx
-│   │   │   └── Results.jsx
-│   └── package.json
+│   ├── app
+│   │   ├── +html.tsx
+│   │   ├── _layout.tsx
+│   │   ├── login.tsx
+│   │   ├── +not-found.tsx
+│   │   ├── register.tsx
+│   │   └── (tabs)
+│   ├── app.json
+│   ├── assets
+│   │   ├── fonts
+│   │   └── images
+│   ├── babel.config.js
+│   ├── components
+│   │   ├── CareerCard.tsx
+│   │   ├── Collapsible.tsx
+│   │   ├── ExternalLink.tsx
+│   │   ├── HelloWave.tsx
+│   │   ├── navigation
+│   │   ├── ParallaxScrollView.tsx
+│   │   ├── __tests__
+│   │   ├── ThemedText.tsx
+│   │   ├── ThemedView.tsx
+│   │   └── UniversityCard.tsx
+│   ├── constants
+│   │   └── Colors.ts
+│   ├── expo-env.d.ts
+│   ├── hooks
+│   │   ├── useColorScheme.ts
+│   │   ├── useColorScheme.web.ts
+│   │   └── useThemeColor.ts
+│   ├── package.json
+│   ├── package-lock.json
+│   ├── README.md
+│   ├── scripts
+│   │   └── reset-project.js
+│   └── tsconfig.json
 └── README.md
 ```
 
@@ -300,10 +345,6 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
    ```
 
    - Run the expertus application:
-
-   ```bash
-   npx expo start
-   ```
 
    ```bash
    npx expo start
