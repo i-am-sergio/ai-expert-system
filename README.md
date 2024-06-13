@@ -24,7 +24,7 @@ Expertus es una aplicacion movil diseñada para ayudar a los usuarios a explorar
 | **Rendimiento**        | El sistema debe ser capaz de manejar múltiples usuarios simultáneamente sin degradar el rendimiento. Las respuestas a las acciones del usuario (como enviar el cuestionario) deben ser rápidas, con tiempos de respuesta inferiores a 2 segundos. |
 | **Escalabilidad**      | El sistema debe ser escalable para soportar un número creciente de usuarios y datos sin pérdida de rendimiento. Debe ser fácil de actualizar y mantener.                                                                                          |
 | **Usabilidad**         | La interfaz de usuario debe ser intuitiva y accesible para personas con diferentes niveles de habilidad tecnológica. Debe seguir principios de diseño accesible para usuarios con discapacidades.                                                 |
-| **Mantenibilidad**     | El código debe estar bien documentado y seguir buenas prácticas de programación para facilitar su mantenimiento y evolución.Debe haber pruebas automatizadas para asegurar la calidad y funcionamiento correcto del sistema.                      |
+| **Mantenibilidad**     | El código debe estar bien documentado y seguir buenas prácticas de programación para facilitar su mantenimiento y evolución. Debe haber pruebas automatizadas para asegurar la calidad y funcionamiento correcto del sistema.                      |
 
 ### **2. Requisitos Funcionales**
 
@@ -67,12 +67,14 @@ El sistema consta de dos partes principales:
 
   - `React Native` Para desarrollar la aplicación móvil.
   - `Expo` Framework para desarrollar aplicaciones de React Native de manera sencilla.
+  - `Typescript` Lenguaje de programación para agregar tipado para variables y escribir código mantenible.
 
 - **_Backend_**
 
   - `Python` Lenguaje de programación principal para el backend.
   - `Flask` Microframework para desarrollar aplicaciones de servidor.
   - `SQLite` Base de datos ligera para almacenar información de usuarios y resultados.
+  - `Docker` Herramienta para crear, desplegar y ejecutar la aplicacion en un contenedor, asegurando su consistencia en los entornos de desarrollo y producción.
 
 ### **5. Funcionalidades**
 
@@ -93,7 +95,6 @@ El sistema consta de dos partes principales:
 1. **Adquisición de Conocimiento**
 
    - **Expertos**: Personas con conocimientos específicos en un área determinada que proporcionan información valiosa al sistema.
-   - **Sensores y Bases de Datos**: Fuentes de información adicional que proporcionan datos en tiempo real o históricos que pueden ser utilizados para enriquecer la base de conocimiento.
    - **Módulo de Adquisición de Conocimiento**: Se encarga de recopilar, formalizar y almacenar el conocimiento obtenido de los expertos y otras fuentes.
 
 2. **Representación del Conocimiento**
@@ -129,7 +130,7 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
 
   - **Product Backlog**: Lista priorizada de funcionalidades, gestionada por el Product Owner.
   - **Sprint Backlog**: Elementos del Product Backlog seleccionados para el Sprint.
-  - **Increment**: Producto funcional y potencialmente entregable al final del Sprint.
+  - **Release**: Producto funcional y potencialmente entregable al final del Sprint.
 
 - **Eventos en Scrum**:
 
@@ -161,7 +162,6 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
 
   - Ingresar el correo electrónico y la contraseña.
   - Presionar el botón "Iniciar Sesión".
-  - Opción para recuperar la contraseña en caso de olvido.
 
 <p align="center">
   <img src="docs/login.jpg" alt="Login" width="200px" />
@@ -172,7 +172,6 @@ Scrum es una metodología ágil que facilita el desarrollo incremental de proyec
 - **Funcionalidad**: Permite a nuevos usuarios crear una cuenta en el sistema.
 - **Acciones**:
   - Ingresar correo electrónico y contraseña.
-  - Confirmar la contraseña.
   - Presionar el botón "Registrar".
 
 <p align="center">
