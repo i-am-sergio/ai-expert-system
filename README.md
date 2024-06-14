@@ -57,15 +57,9 @@ El sistema consta de dos partes principales:
 │   └── test
 │       ├── expert.py
 │       └── lecturaCarrerasDB.py
-├── COMMITS.md
+|
 ├── docs
-│   ├── arquitectura-sistema-experto.png
-│   ├── chatbox.jpg
-│   ├── diagnostico.jpg
-│   ├── explore.jpg
-│   ├── home.jpg
-│   ├── login.jpg
-│   └── register.jpg
+│   └── ...
 ├── expertus
 │   ├── app
 │   │   ├── +html.tsx
@@ -74,6 +68,11 @@ El sistema consta de dos partes principales:
 │   │   ├── +not-found.tsx
 │   │   ├── register.tsx
 │   │   └── (tabs)
+│   │       ├── _layout.tsx
+│   │       ├── chatbox.tsx
+│   │       ├── explore.tsx
+│   │       ├── index.tsx
+│   │       └── settings.tsx
 │   ├── app.json
 │   ├── assets
 │   │   ├── fonts
@@ -103,6 +102,7 @@ El sistema consta de dos partes principales:
 │   ├── scripts
 │   │   └── reset-project.js
 │   └── tsconfig.json
+├── COMMITS.md
 └── README.md
 ```
 
@@ -263,6 +263,17 @@ def procesar_respuesta(data):
 <p align="center">
   <img src="docs/arquitectura-sistema-experto.png" alt="Expert System" width="500px" />
 </p>
+
+5. ***Tipo de Encadenamiento***
+
+   El código utiliza encadenamiento hacia adelante (forward chaining) por las siguientes razones:
+
+   - **Recopilación y Aplicación de Hechos:** El sistema comienza con una base de hechos conocida (síntomas proporcionados por el usuario). Aplica reglas (relaciones entre síntomas y diagnósticos) para derivar nuevos hechos (diagnósticos posibles).
+
+   - **Progresión Basada en Hechos:** A medida que el usuario proporciona respuestas, se añaden nuevos hechos a la lista de conocido. Las reglas se evalúan continuamente para ver si los hechos actuales pueden derivar un diagnóstico.
+
+   - **Evaluación Continua:** Se genera una nueva pregunta basada en los síntomas que aún no han sido evaluados. Este proceso continúa hasta que se puede derivar un diagnóstico a partir de los hechos conocidos.
+
 
 ## Metodologia
 
